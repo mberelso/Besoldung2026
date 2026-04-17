@@ -25,8 +25,8 @@ Live: **https://DEIN-GH-NAME.github.io/balimentg-rechner/**
 ## Technik (v2.0)
 
 Der Rechner wurde auf eine moderne **React + Vite** Architektur portiert.
-- Komponentenbasierte Benutzerführung (Step-by-Step Wizard)
-- Premium Vanilla CSS Design (Glassmorphism, Dark Mode)
+- Komponentenbasierte Benutzerführung (Step-by-Step Wizard) mit nutzerfreundlicher Sprache (statt komplexem Amtsdeutsch)
+- Premium Vanilla CSS Design (Glassmorphism, Dark Mode) mit voller Responsivität für Smartphones
 - Ausgelagerte Berechnungslogik (`src/logic/calculator.js`)
 
 ## Tests
