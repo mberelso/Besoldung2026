@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mberelso.github.io/Besoldung2026/sitemap.xml
