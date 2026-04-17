@@ -28,8 +28,8 @@ const Step2_Kids = ({ kids, onChange }) => {
       <h2>2. Angaben zu Kindern</h2>
       <p className="sub mb-6">Die Anzahl und das Alter der Kinder sichern dir entscheidende Ansprüche – sowohl beim laufenden Familienzuschlag als auch bei den baldigen Nachzahlungen.</p>
 
-      <div className="form-group" style={{ background: 'var(--bg-main)', padding: '1.5rem', borderRadius: 'var(--radius-md)' }}>
-        <label className="flex items-center gap-4" style={{ fontSize: '1.1rem', margin: 0 }}>
+      <div className="form-group glass-card">
+        <label className="flex items-center gap-4" style={{ fontSize: '1.1rem', margin: 0, flexWrap: 'wrap' }}>
           Für wie viele Kinder bestand zwischen 2021 und heute Anspruch auf Kindergeld?
           <input 
             type="number" min="0" max="6" 
@@ -43,7 +43,7 @@ const Step2_Kids = ({ kids, onChange }) => {
       {kids.length > 0 && (
         <div className="mt-8">
           {kids.map((kid, i) => (
-            <div key={i} className="glass-card mb-6" style={{ padding: '1.5rem' }}>
+            <div key={i} className="glass-card mb-6">
               <h3 className="mb-4 text-primary">Kind {i + 1} <span className="text-sm text-muted font-normal">(nach Geburtsreihenfolge)</span></h3>
               <div className="grid cols-2 gap-4">
                 <div className="form-group">

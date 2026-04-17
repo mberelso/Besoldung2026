@@ -10,7 +10,7 @@ const Step5_Result = ({ result, data }) => {
       <p className="sub mb-6">Dein errechnetes Brutto-Gehalt und die voraussichtlichen Nachzahlungen.</p>
 
       <div className="grid cols-2 gap-4 mb-6">
-        <div className="glass-card" style={{ padding: '2rem' }}>
+        <div className="glass-card">
           <h3 className="mb-4">04/2025 – 04/2026</h3>
           <table className="result-table">
             <tbody>
@@ -23,7 +23,7 @@ const Step5_Result = ({ result, data }) => {
           </table>
         </div>
         
-        <div className="glass-card" style={{ padding: '2rem' }}>
+        <div className="glass-card">
           <h3 className="mb-4 text-primary">ab 05/2026 <span className="text-sm font-normal">(Tabellenreform)</span></h3>
           <table className="result-table">
             <tbody>
@@ -37,7 +37,7 @@ const Step5_Result = ({ result, data }) => {
         </div>
       </div>
 
-      <div className="glass-card mb-6" style={{ padding: '2rem' }}>
+      <div className="glass-card mb-6">
         <h3 className="mb-4 text-success">Nachzahlung §§ 79a–79e + 3 %</h3>
         <div style={{ overflowX: 'auto' }}>
           <table className="result-table">
