@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAlimentG-Rechner · Besoldung &amp; Nachzahlung (Bund)</title>
+<meta name="description" content="Kostenloser Online-Rechner zum Bundesalimentationsgesetz (BAlimentG): ermittelt deine laufende Besoldung und die voraussichtliche Nachzahlung nach §§ 79a-79e BBesG-E. Alle Eingaben bleiben lokal im Browser.">
+<meta name="author" content="Martin Berelson">
+<meta name="robots" content="index,follow">
+
+<\!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="BAlimentG-Rechner · Besoldung & Nachzahlung (Bund)">
+<meta property="og:description" content="Ermittle deine laufende Besoldung und die Nachzahlung nach dem BMI-Referentenentwurf BAlimentG. Keine Daten verlassen deinen Browser.">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="BAlimentG-Rechner">
+
+<\!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BAlimentG-Rechner (Bund)">
+<meta name="twitter:description" content="Brutto-Besoldung und Nachzahlung nach dem BAlimentG-Referentenentwurf berechnen.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%B6%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--bg:#f4f6fb;--card:#fff;--ink:#0e1a2b;--muted:#55607a;--accent:#1d4ed8;--accent2:#2563eb;--ok:#15803d;--warn:#b45309;--border:#d5dbe8;--help:#f0f7ff}
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px}
+  h1{font-size:22px;margin:0 0 4px} h2{font-size:18px;margin:0 0 4px;color:var(--accent)} h3{font-size:14px;margin:14px 0 4px} h4{font-size:12px;margin:10px 0 4px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .sub{color:var(--muted);margin:0 0 12px;font-size:13px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:0 1px 2px rgba(10,20,50,.03)}
+  .card.intro{background:#eff6ff;border-color:#bfdbfe}
+  .card.intro h2{color:#1e40af}
+  .grid{display:grid;gap:14px}
+  .grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))} .grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))} .grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))} .grid.cols-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+  @media(max-width:900px){.grid.cols-2,.grid.cols-3,.grid.cols-4,.grid.cols-6{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.grid.cols-2,.grid.cols-3,.grid.cols-4,.grid.cols-6{grid-template-columns:1fr}}
+  label{display:flex;flex-direction:column;font-size:13px;color:var(--ink);gap:4px;font-weight:500}
+  label .hint{font-weight:400;color:var(--muted);font-size:11px;line-height:1.35;display:block;margin-top:2px}
+  input,select,textarea{font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#fcfdff;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid var(--accent2);outline-offset:1px}
+  .checkline{display:flex;align-items:flex-start;gap:8px;font-size:13px}
+  .checkline input[type=checkbox]{margin-top:2px}
+  .btn{appearance:none;border:0;background:var(--accent);color:#fff;padding:10px 22px;border-radius:10px;font:inherit;cursor:pointer;font-weight:600} .btn:hover{background:var(--accent2)}
+  .btn.alt{background:#fff;color:var(--accent);border:1px solid var(--accent)}
+  .muted{color:var(--muted);font-size:12px}
+  .pill{display:inline-block;background:#eef2ff;color:#3730a3;font-size:11px;padding:2px 8px;border-radius:999px;margin-left:6px}
+  .ok{color:var(--ok);font-weight:600}
+  .help-box{background:var(--help);border-left:3px solid var(--accent);padding:10px 14px;border-radius:6px;font-size:12.5px;color:#1e293b;margin:8px 0 14px}
+  .help-box strong{color:var(--accent)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border)} th{background:#f3f6fc;font-weight:600} td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .total-row td{font-weight:700;background:#ecfdf5;color:var(--ok);border-top:2px solid var(--ok)}
+  details{margin-top:4px;background:#fafbff;border:1px solid var(--border);border-radius:6px;padding:8px 12px}
+  details[open]{background:var(--help);border-color:#bfdbfe}
+  summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:500}
+  .legal{font-size:12px;color:var(--muted);margin-top:6px}
+  .kid{border:1px dashed var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;background:#fafbff}
+  .year-row{display:grid;grid-template-columns:70px repeat(5,1fr) 1.3fr;gap:8px;align-items:end;margin-top:6px}
+  .year-row .ylbl{font-weight:600;font-size:12px;color:var(--accent)}
+  .year-row input{padding:6px 8px;font-size:12px;width:100%;box-sizing:border-box}
+  .year-row .yc{display:flex;flex-direction:column;gap:2px}
+  .year-row .yc .ycl{font-size:10px;color:var(--muted);display:none}
+  .version{display:inline-block;background:#fef3c7;color:#92400e;font-size:10px;padding:1px 8px;border-radius:999px;margin-left:6px;font-weight:500;letter-spacing:.02em}
+  .privacy-banner{background:#ecfdf5;border-left:3px solid var(--ok);padding:8px 12px;border-radius:6px;font-size:12.5px;margin:0 0 10px;color:#14532d}
+  .site-footer{margin-top:20px;padding:16px 18px;background:#fff;border:1px solid var(--border);border-radius:12px;font-size:12px;color:var(--muted)}
+  .site-footer .footer-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+  .site-footer .footer-nav{display:flex;gap:16px;flex-wrap:wrap}
+  .site-footer a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+  .site-footer a:hover{color:var(--accent2)}
+  @media(max-width:720px){
+    .year-row{grid-template-columns:1fr;gap:8px;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;background:#fafbff}
+    .year-row .ylbl{font-size:14px;margin-bottom:2px;border-bottom:1px solid var(--border);padding-bottom:4px;color:var(--accent)}
+    .year-row input{font-size:14px;padding:8px 10px}
+    .year-row .yc .ycl{display:block;font-size:11px;color:var(--ink);font-weight:500}
+    .year-row-head{display:none !important}
+    /* synthetic labels before each input via a sibling element is not feasible with grid-row; show data-f via flanking label element we add in JS alternatively */
+  }
+  .year-row-head{display:none}
+  @media(min-width:721px){.year-row-head{display:grid}}
+  .year-row .num{text-align:right;font-size:12px;color:var(--ink);font-variant-numeric:tabular-nums;padding:4px 8px}
+  .mobile-lbl{display:none}
+  @media(max-width:720px){.mobile-lbl{display:block;margin-bottom:2px;font-size:10px;color:var(--muted)}}
+  .tip{display:inline-block;background:#fef3c7;color:#92400e;font-size:11px;padding:1px 8px;border-radius:999px;margin-left:6px;font-weight:500}
+  .step{display:inline-block;background:var(--accent);color:#fff;width:22px;height:22px;line-height:22px;border-radius:50%;text-align:center;font-size:12px;font-weight:700;margin-right:8px}
+  ul.why{margin:4px 0 0 18px;padding:0} ul.why li{font-size:12.5px;color:#334155;margin:2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Besoldungs- und Nachzahlungsrechner (Bund) <span class="pill">BAlimentG – Entwurf</span> <span class="version">v1.0 · Stand 14.04.2026</span></h1>
+  <p class="privacy-banner">🔒 <strong>Alle Eingaben bleiben in deinem Browser.</strong> Keine Daten werden an einen Server gesendet. Keine Cookies, kein Tracking.</p>
+<p class="sub">Ermittelt dein Brutto-Gehalt jetzt, ab 05/2026 und die <strong>Nachzahlung</strong> nach dem Gesetzentwurf.</p>
+</header>
+
+<section class="card intro">
+  <h2>Was berechnet dieser Rechner – und wofür sind die Abfragen?</h2>
+  <p style="margin:6px 0">Der Referentenentwurf des BMI sieht <strong>fünf Nachzahlungs-Töpfe</strong> für die Jahre 2021–04/2026 vor. Jeder Topf hat eigene Voraussetzungen – deshalb die vielen Abfragen:</p>
+  <ul class="why">
+    <li><strong>§ 79b</strong> (Einmalzahlung 138 € für 2021) &rarr; gilt für jeden, der 2021 Dienstbezüge hatte.</li>
+    <li><strong>§ 79c</strong> (Einmalzahlung 2025) &rarr; nur für A 16 / W 1 / R 2.</li>
+    <li><strong>§ 79d</strong> (Kinder 1 &amp; 2) &rarr; 41 €/9 €/52 € pro Kind und Monat mit Kindergeld-Berechtigung.</li>
+    <li><strong>§ 79a</strong> (Ergänz. Familienzuschlag rückwirkend) &rarr; nur bei Elternzeit des Ehegatten / Pflege / Krankheit / Alleinerziehung mit 2+ Kindern.</li>
+    <li><strong>3 %-Anhebung 04/2025</strong> &rarr; für alle, rückwirkend vom Inkrafttreten.</li>
+  </ul>
+  <p class="muted" style="margin:10px 0 0"><strong>Vorgehen:</strong> 1. Persönliche Daten → 2. Kinder → 3. Monate Dienstbezug → 4. (nur falls zutreffend) § 41-Sonderfall → 5. Berechnen.</p>
+</section>
+
+<section class="card">
+  <h2><span class="step">1</span>Persönliche Daten</h2>
+  <p class="sub">Alle vier Angaben stehen auf deiner <em>Besoldungsmitteilung</em> (LBV/BVA).</p>
+
+  <div class="grid cols-4">
+    <label>Besoldungsordnung
+      <select id="order"><option value="A" selected>A – Beamte/Soldaten</option><option value="B">B – höhere Leitung</option><option value="W">W – Professoren</option><option value="R">R – Richter/Staatsanwälte</option></select>
+      <span class="hint">Steht oben auf der Abrechnung. Im Zweifel: <strong>A</strong>.</span>
+    </label>
+    <label>Besoldungsgruppe
+      <select id="group"></select>
+      <span class="hint">z. B. <strong>A 9</strong> (mittl. Dienst Endstufe), <strong>A 13</strong> (Einstieg höherer Dienst).</span>
+    </label>
+    <label>Erfahrungsstufe
+      <select id="level"></select>
+      <span class="hint">Steigt mit Dienstalter (1 = Einstieg, 8 = Endstufe). Für B nur eine Stufe.</span>
+    </label>
+    <label>Laufbahnzuschlag
+      <select id="career">
+        <option value="none" selected>– keiner / weiß nicht –</option>
+        <option value="mittlerer_A5A6">mittl. Dienst A 5/A 6 (+25,90 €)</option>
+        <option value="gehobener_A9A10">geh. Dienst A 9/A 10 (+11,30 €)</option>
+      </select>
+      <span class="hint">Nur wenn auf der Abrechnung ein „Erhöhungsbetrag" ausgewiesen ist. Sonst: keiner.</span>
+    </label>
+  </div>
+
+  <div class="grid cols-4" style="margin-top:14px">
+    <label>Familienstand
+      <select id="married"><option value="single" selected>ledig / getrennt</option><option value="married">verheiratet / eingetr. LP</option><option value="singleparent">alleinerziehend (mit Kind(ern))</option></select>
+      <span class="hint">Beeinflusst Familienzuschlag &amp; ergänz. FZ.</span>
+    </label>
+    <label>Teilzeitfaktor
+      <input id="part" type="number" min="0" max="1" value="1" step="0.01">
+      <span class="hint">1,00 = Vollzeit · 0,50 = 50 % · 0,75 = 3/4-Stelle.</span>
+    </label>
+    <label class="checkline" style="margin-top:22px;font-weight:500">
+      <input type="checkbox" id="pkv">
+      <span>Ehegatte in <strong>PKV</strong> oder <strong>freiw. GKV</strong>
+        <span class="hint">Nur ankreuzen, wenn Ehegatte SELBST versichert ist (nicht: mitversichert in deiner Beihilfe/GKV). Erhöht Anlage VII.</span>
+      </span>
+    </label>
+    <label class="checkline" style="margin-top:22px;font-weight:500">
+      <input type="checkbox" id="extFamilyCurrent">
+      <span>Sonderfall läuft <strong>heute noch</strong>
+        <span class="hint">Nur ankreuzen, wenn § 41-/41a-Voraussetzungen <em>aktuell</em> erfüllt sind (z. B. Ehegatte gerade in Elternzeit). Wirkt nur auf Tabelle „ab 05/2026".</span>
+      </span>
+    </label>
+  </div>
+</section>
+
+<section class="card">
+  <h2><span class="step">2</span>Kinder</h2>
+  <p class="sub">Kinder sind entscheidend für Familienzuschlag und drei der fünf Nachzahlungs-Töpfe.</p>
+
+  <div class="help-box">
+    <strong>Warum Geburtsmonat?</strong> Maßgeblich ist der <strong>Kindergeld-Anspruch nach § 32 EStG</strong>: Ein Kind zählt ab dem Geburtsmonat und bis zum Monat vor dem 18. Geburtstag (mit Ausbildung bis zum 25.). Der Rechner zählt daraus pro Jahr die Monate.
+    <br><strong>Reihenfolge:</strong> Das zuerst geborene Kind ist „Kind 1". Diese Reihenfolge ist wichtig für § 79d (nur Kinder 1 &amp; 2).
+  </div>
+
+  <label class="checkline" style="flex-direction:row;margin:0 0 10px;align-items:center">
+    <span>Wie viele Kinder hast/hattest du im Zeitraum 2021–heute?&nbsp;</span>
+    <input id="nKids" type="number" min="0" max="6" value="0" step="1" style="max-width:70px">
+    <button id="rebuildKids" class="btn alt" style="padding:6px 12px;font-size:12px">Felder erzeugen</button>
+  </label>
+  <div id="kidsContainer"></div>
+</section>
+
+<section class="card">
+  <h2><span class="step">3</span>Monate mit Dienstbezug pro Jahr</h2>
+  <p class="sub">Wie viele Monate <em>jedes</em> Kalenderjahres hattest du beim Bund ein aktives Gehalt?</p>
+  <div class="help-box">
+    <strong>Typisch: 12 je Jahr.</strong> Ausnahmen: Ernennung mitten im Jahr, Elternzeit (du selbst), Beurlaubung ohne Bezüge, Versetzung zu einem anderen Dienstherrn. Für 01–04/2026: maximal 4 Monate.
+  </div>
+  <div class="grid cols-6">
+    <label>2021<input id="m2021" type="number" min="0" max="12" value="12" step="1"></label>
+    <label>2022<input id="m2022" type="number" min="0" max="12" value="12" step="1"></label>
+    <label>2023<input id="m2023" type="number" min="0" max="12" value="12" step="1"></label>
+    <label>2024<input id="m2024" type="number" min="0" max="12" value="12" step="1"></label>
+    <label>2025<input id="m2025" type="number" min="0" max="12" value="12" step="1"></label>
+    <label>01–04/2026<input id="m2026pre" type="number" min="0" max="4" value="4" step="1"></label>
+  </div>
+</section>
+
+<section class="card">
+  <h2><span class="step">4</span>Sonderfall § 41 / § 41a <span class="tip">optional – nur bei Besonderheiten</span></h2>
+  <p class="sub">Nur ausfüllen, wenn in der Vergangenheit eine dieser engen Konstellationen vorlag. Wenn nichts davon zutrifft: <strong>„nicht erfüllt"</strong> auswählen und Abschnitt überspringen.</p>
+
+  <div class="help-box">
+    <strong>Wann § 41 greift (Verheiratete):</strong>
+    <ul class="why" style="margin-top:4px">
+      <li><strong>Nr. 1:</strong> Dein Ehegatte war in <em>Elternzeit</em>, solange ein Kind <em>unter 1 Jahr</em> war.</li>
+      <li><strong>Nr. 2/3:</strong> Dein Ehegatte pflegte einen Angehörigen bzw. euer Kind mit Pflegegrad ≥ 2.</li>
+      <li><strong>Nr. 4:</strong> Dein Ehegatte war dauerhaft erwerbsunfähig.</li>
+      <li><strong>Nr. 5:</strong> Dein Ehegatte war krank, der Krankengeld-Anspruch endete (max. 12 Monate zusammenhängend).</li>
+    </ul>
+    <strong>§ 41a:</strong> Du bist <em>alleinerziehend</em> mit <strong>2 oder mehr</strong> Kindern (Entlastungsbetrag § 24b EStG).
+  </div>
+
+  <div class="grid cols-3">
+    <label>Tatbestand
+      <select id="case41">
+        <option value="none" selected>– nicht erfüllt (überspringen) –</option>
+        <option value="n1">Nr. 1: Ehegatte Elternzeit (Kind &lt; 1 J.)</option>
+        <option value="n2">Nr. 2: Ehegatte pflegt Angehörigen (PG ≥ 2)</option>
+        <option value="n3">Nr. 3: Ehegatte pflegt euer Kind (PG ≥ 2)</option>
+        <option value="n4">Nr. 4: Ehegatte dauerhaft erwerbsunfähig</option>
+        <option value="n5">Nr. 5: Ehegatte krank, Krankengeld erloschen</option>
+        <option value="a">§ 41a: alleinerziehend, 2+ Kinder</option>
+      </select>
+    </label>
+    <label>Max. Laufzeit
+      <input id="maxDuration" readonly value="–" style="background:#eef">
+      <span class="hint">Hinweis zur gesetzlichen Höchstdauer.</span>
+    </label>
+    <label>Bezugskind bei Nr. 1
+      <select id="ref_child_41_n1"><option value="">– keines –</option></select>
+      <span class="hint">Nur relevant für Nr. 1: Welches Kind wurde vom Ehegatten in Elternzeit betreut?</span>
+    </label>
+  </div>
+
+  <h3 style="margin-top:14px">Pro Jahr: Monate mit erfülltem Sonderfall + Einkommen des Ehegatten</h3>
+  <div class="help-box" style="margin-bottom:6px">
+    <div style="font-weight:700;font-size:13px;margin-bottom:6px">⚠️ Nur ausfüllen, wenn du oben einen § 41-Fall (Nr. 1 – 5 oder § 41a) gewählt hast.</div>
+    <div style="margin-bottom:6px">Wenn bei dir <em>keiner</em> dieser Sonderfälle vorlag: alle Felder auf <strong>0</strong> lassen und einfach auf <em>Berechnen</em> klicken. Die Tabelle ist dann irrelevant.</div>
+    <div style="border-top:1px dashed #b7cbe6;margin-top:6px;padding-top:8px">
+      <strong>Wann trage ich was ein?</strong> Für jedes Jahr, in dem der Sonderfall zumindest zeitweise vorlag:
+      <ul class="why" style="margin-top:4px">
+        <li><strong>Monate mit Voraussetzung:</strong> In wie vielen <em>Monaten</em> des Jahres lag der gewählte Sonderfall vor? (z.&nbsp;B. Nr. 1: Monate, in denen der Ehegatte Elternzeit hatte und das Kind &lt; 1 Jahr war.)</li>
+        <li><strong>Erwerb Ehegatte €:</strong> <em>Jahresbrutto</em> des Ehegatten (Lohn/Selbständigkeit) – aber nur aus den Monaten mit Voraussetzung. Arbeitet er/sie gar nicht: 0.</li>
+        <li><strong>Elterngeld €:</strong> Summe des <em>Elterngeldes</em>, das dein Ehegatte im Jahr bezogen hat (Basis, Plus, Partnerbonus).</li>
+        <li><strong>Sonst. Einkünfte €:</strong> Arbeitslosengeld, Krankengeld, Rente etc. des Ehegatten.</li>
+        <li><strong>Unterhalt/Waise Kind 1&amp;2 €:</strong> Unterhalt Dritter / Waisenrente, den <em>die ersten beiden</em> Kinder erhalten haben. Üblicherweise 0.</li>
+      </ul>
+    </div>
+    <div style="border-top:1px dashed #b7cbe6;margin-top:6px;padding-top:8px">
+      <strong>Beispiel Nr. 1 (Elternzeit):</strong> Dein Ehegatte war 06–12/2023 in Elternzeit mit Basis-Elterngeld 1.300 €/Monat, kein Nebenerwerb.
+      → Zeile 2023: Monate = 7, Erwerb = 0, Elterngeld = 9.100, Sonst = 0, Kind = 0.
+      Für 2021, 2022, 2024 etc. bleibt alles 0.
+    </div>
+    <div style="margin-top:6px;font-size:11.5px;color:var(--muted)">Rechtsgrundlage: § 41 Abs. 2 BBesG-E i.V.m. § 18a SGB IV.</div>
+  </div>
+
+  <div class="year-row year-row-head" style="color:var(--muted);font-size:11px;font-weight:600">
+    <div>Jahr</div>
+    <div>Monate mit Voraussetz.</div>
+    <div>Erwerb Ehegatte €</div>
+    <div>Elterngeld €</div>
+    <div>Sonst. Einkünfte €</div>
+    <div>Unterhalt/Waise Kind 1&amp;2 €</div>
+    <div>≈ Nachzahlung</div>
+  </div>
+  <div id="yearRows79a"></div>
+
+  <details>
+    <summary>Was heißt „anrechenbares Einkommen" genau?</summary>
+    <div style="font-size:12.5px;margin-top:6px">
+      Die Norm verweist auf § 18a SGB IV. Praktisch:
+      <ul class="why" style="margin-top:4px">
+        <li><strong>Erwerbseinkommen:</strong> Bruttolohn, Selbständigeneinkünfte des Ehegatten.</li>
+        <li><strong>Elterngeld:</strong> Der volle Elterngeldbetrag (Basis-ElG, ElterngeldPlus, Partnerschaftsbonus).</li>
+        <li><strong>Sonst. Einkünfte:</strong> Arbeitslosengeld, Krankengeld, Rente etc.</li>
+        <li><strong>Kind-Einkommen:</strong> Unterhalt von Dritten, Waisenrente/-geld – nur der ersten beiden Kinder.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<section class="card" style="text-align:center;background:linear-gradient(180deg,#fff,#f0f7ff)">
+  <button id="calc" class="btn" style="font-size:15px;padding:12px 32px">→ Berechnen</button>
+  <p class="muted" style="margin:10px 0 0">Alle Beträge Brutto. Keine Rechtsberatung.</p>
+</section>
+
+<section class="card">
+  <h2>Ergebnis: Laufende Besoldung</h2>
+  <div class="grid cols-2">
+    <div><h3>04/2025 – 04/2026 <span class="pill">aktuelle Tabelle</span></h3><table id="tblApr25"></table></div>
+    <div><h3>ab 05/2026 <span class="pill">Tabellenreform</span></h3><table id="tblMay26"></table></div>
+  </div>
+  <p class="legal">§ 14 Abs. 2 BBesG-E: +3 % zum 01.04.2025 + Tabellenreform 01.05.2026 (Stufe 1 entfällt, FZ wird in Grundgehalt überführt, mind. +2,8 %).</p>
+</section>
+
+<section class="card">
+  <h2>Ergebnis: Nachzahlung §§ 79a–79e + 3 %</h2>
+  <table id="tblNach"></table>
+</section>
+
+<section class="card">
+  <h2>Gesamtübersicht</h2>
+  <div id="summary"></div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-row">
+    <div>
+      <strong>Quelle:</strong> BMI-Referentenentwurf „Bundesalimentationsgesetz (BAlimentG)", Bearbeitungsstand 14.04.2026.<br>
+      <strong>Version:</strong> v1.0 · <strong>Lizenz:</strong> MIT · <strong>Keine Rechtsberatung.</strong>
+    </div>
+    <nav class="footer-nav">
+      <a href="impressum.html">Impressum</a>
+      <a href="impressum.html#datenschutz">Datenschutz</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">Quellcode</a>
+    </nav>
+  </div>
+</footer>
+</div>
+<script>
+const A_APR25 = {
+  A3:[2788.20,2846.21,2904.25,2950.96,2997.67,3044.39,3091.11,3137.81],
+  A4:[2842.01,2911.35,2980.70,3035.89,3091.11,3146.32,3201.51,3252.49],
+  A5:[2861.79,2948.13,3017.48,3085.45,3153.42,3222.78,3290.69,3357.24],
+  A6:[2918.40,3018.93,3120.82,3198.68,3279.38,3357.24,3443.56,3518.59],
+  A7:[3052.89,3142.09,3259.59,3379.86,3497.35,3616.27,3705.46,3794.62],
+  A8:[3217.09,3324.69,3476.12,3629.03,3781.88,3888.04,3995.62,4101.79],
+  A9:[3454.89,3561.06,3728.11,3897.95,4064.96,4178.50,4296.61,4411.80],
+  A10:[3682.78,3828.58,4039.52,4251.38,4467.19,4617.38,4767.53,4917.77],
+  A11:[4178.50,4401.57,4623.20,4846.28,4999.37,5152.47,5305.57,5458.71],
+  A12:[4464.29,4728.20,4993.56,5257.45,5441.18,5621.98,5804.24,5989.42],
+  A13:[5197.69,5445.55,5691.96,5939.83,6110.42,6282.50,6453.06,6620.73],
+  A14:[5339.11,5658.42,5979.20,6298.51,6518.66,6740.33,6960.46,7182.11],
+  A15:[6477.85,6766.56,6986.72,7206.91,7427.06,7645.77,7864.49,8081.71],
+  A16:[7123.78,7459.16,7712.84,7966.56,8218.79,8473.97,8727.66,8978.48]
+};
+const A_MAY26 = {
+  A3:[null,3107.26,3191.16,3277.32,3365.81,3456.69,3550.02,3645.87],
+  A4:[null,3175.62,3261.36,3349.42,3439.85,3532.73,3628.11,3726.07],
+  A5:[null,3245.48,3333.11,3423.10,3515.52,3610.44,3707.92,3808.03],
+  A6:[null,3407.75,3499.76,3594.25,3691.29,3790.95,3893.31,3998.43],
+  A7:[null,3578.14,3674.75,3773.97,3875.87,3980.52,4087.99,4198.37],
+  A8:[null,3757.05,3858.49,3962.67,4069.66,4179.54,4292.39,4408.28],
+  A9:[null,4132.76,4244.34,4358.94,4476.63,4597.50,4721.63,4849.11],
+  A10:[null,4546.04,4668.78,4794.84,4924.30,5057.26,5193.81,5334.04],
+  A11:[null,5000.64,5135.66,5274.32,5416.73,5562.98,5713.18,5867.44],
+  A12:[null,5500.70,5649.22,5801.75,5958.40,6119.28,6284.50,6454.18],
+  A13:[null,6105.78,6270.64,6439.95,6613.83,6792.40,6975.79,7164.14],
+  A14:[null,6777.42,6960.41,7148.34,7341.35,7539.57,7743.14,7952.20],
+  A15:[null,7522.94,7726.06,7934.66,8148.90,8368.92,8594.88,8826.94],
+  A16:[null,8350.46,8575.92,8807.47,9045.27,9289.49,9540.31,9797.90]
+};
+const B_APR25 = {B1:8081.71,B2:9353.18,B3:9891.19,B4:10454.00,B5:11099.94,B6:11713.81,B7:12305.77,B8:12925.42,B9:13693.84,B10:16080.70,B11:16566.89};
+const B_MAY26 = {B1:8826.94,B2:10230.42,B3:10854.48,B4:11516.60,B5:12219.11,B6:12964.48,B7:13755.31,B8:14594.38,B9:15484.64,B10:17946.70,B11:19831.10};
+const W_APR25 = {W1:[5690.50],W2:[7017.05,7417.07,7817.07],W3:[7817.07,8350.42,8883.77]};
+const W_MAY26 = {W1:[6777.42],W2:[7658.48,8072.04,8507.93],W3:[8654.08,9121.40,9613.96]};
+const R_APR25 = {R2:[6269.33,6579.94,6889.05,7311.90,7737.62,8161.94,8587.71,9013.47],R3:[9891.19],R5:[11099.94],R6:[11713.81],R7:[12305.77],R8:[12925.42],R9:[13693.84],R10:[16566.89]};
+const R_MAY26 = {R2:[null,7600.00,7964.80,8347.11,8747.77,9167.66,9607.71,10068.88],R3:[10854.48],R5:[12219.11],R6:[12964.48],R7:[13755.31],R8:[14594.38],R9:[15484.64],R10:[19831.10]};
+
+const FZ_APR25 = { stufe1_verheiratet:176.42, stufe2_ersterkind:327.19, zweitKind:150.77, weitereKinder:469.74 };
+const FZ_MAY26 = { ersterkind:265.00, zweitKind:265.00, weitereKinder:708.00 };
+const EFZ_MAY26 = { verh_0:607.00, verh_1:1008.00, verh_2:1519.00, pkv_plus:{0:285.00,1:286.00,2:287.00}, allein_2:484.00 };
+const NACHZAHLUNG = { einmal2021:138.00, einmal2025:{A16:19.75,W1:20.67,R2:23.00}, kinder:{y2021:41.00,y2022:9.00,y2025:52.00} };
+const MAX_DURATION = { none:'–', n1:'solange Kind < 1 Jahr', n2:'max. 5 Jahre', n3:'max. 5 Jahre', n4:'dauerhaft', n5:'max. 12 Monate', a:'solange § 24b EStG' };
+
+const groups = { A:Object.keys(A_APR25), B:Object.keys(B_APR25), W:Object.keys(W_APR25), R:Object.keys(R_APR25) };
+function populateGroup(){
+  const o = document.getElementById('order').value;
+  const g = document.getElementById('group'); g.innerHTML='';
+  groups[o].forEach(k=>{ const opt=document.createElement('option'); opt.value=k; opt.textContent=k; g.appendChild(opt); });
+  populateLevel();
+}
+function populateLevel(){
+  const o = document.getElementById('order').value;
+  const grp = document.getElementById('group').value;
+  const lvl = document.getElementById('level'); lvl.innerHTML='';
+  let n=1;
+  if(o==='A') n=8;
+  else if(o==='B') n=1;
+  else if(o==='W') n = (W_APR25[grp]||[1]).length;
+  else if(o==='R') n = (R_APR25[grp]||[1]).length;
+  for(let i=1;i<=n;i++){ const opt=document.createElement('option'); opt.value=i; opt.textContent='Stufe '+i; lvl.appendChild(opt); }
+}
+document.getElementById('order').addEventListener('change', populateGroup);
+document.getElementById('group').addEventListener('change', populateLevel);
+populateGroup();
+
+document.getElementById('case41').addEventListener('change', e=>{
+  document.getElementById('maxDuration').value = MAX_DURATION[e.target.value]||'-';
+  document.getElementById('ref_child_41_n1').disabled = e.target.value!=='n1';
+});
+
+function buildKids(){
+  const n = Math.max(0, Math.min(6, parseInt(document.getElementById('nKids').value)||0));
+  const c = document.getElementById('kidsContainer');
+  const saved = {};
+  [...c.querySelectorAll('input,select')].forEach(el=>saved[el.name||el.id]=el.value);
+  c.innerHTML='';
+  for(let i=1;i<=n;i++){
+    const d = document.createElement('div');
+    d.className='kid';
+    d.innerHTML =
+      '<h4>Kind '+i+' (nach Geburtsreihenfolge)</h4>'+
+      '<div class="grid cols-4">'+
+        '<label>Geburtsmonat<input type="month" name="kid'+i+'_birth" value="'+(saved['kid'+i+'_birth']||'')+'">'+
+          '<span class="hint">Format: YYYY-MM. Entscheidet über Kindergeldanspruch.</span></label>'+
+        '<label>Ende FZ-Anspruch (optional)<input type="month" name="kid'+i+'_end" value="'+(saved['kid'+i+'_end']||'')+'">'+
+          '<span class="hint">Nur ausfüllen, wenn Anspruch vorzeitig endete (z. B. Studienabbruch).</span></label>'+
+        '<label>In Ausbildung/Studium?<select name="kid'+i+'_edu">'+
+          '<option value="no"'+(saved['kid'+i+'_edu']!=='yes'?' selected':'')+'>Nein (Anspruch bis 18.)</option>'+
+          '<option value="yes"'+(saved['kid'+i+'_edu']==='yes'?' selected':'')+'>Ja (bis 25.)</option></select>'+
+          '<span class="hint">Studium, Lehre, FSJ usw. verlängert den Kindergeldanspruch.</span></label>'+
+        '<label>Pflegegrad ≥ 2?<select name="kid'+i+'_pflege">'+
+          '<option value="no"'+(saved['kid'+i+'_pflege']!=='yes'?' selected':'')+'>Nein</option>'+
+          '<option value="yes"'+(saved['kid'+i+'_pflege']==='yes'?' selected':'')+'>Ja</option></select>'+
+          '<span class="hint">Nur relevant für § 41 Nr. 3 (Pflege durch Ehegatten).</span></label>'+
+      '</div>';
+    c.appendChild(d);
+  }
+  const sel = document.getElementById('ref_child_41_n1');
+  sel.innerHTML = '<option value="">– keines –</option>';
+  for(let i=1;i<=n;i++){ const opt=document.createElement('option'); opt.value=i; opt.textContent='Kind '+i; sel.appendChild(opt); }
+}
+document.getElementById('rebuildKids').addEventListener('click', buildKids);
+
+function buildYearRows(){
+  const years = [{k:'2021',label:'2021'},{k:'2022',label:'2022'},{k:'2023',label:'2023'},{k:'2024',label:'2024'},{k:'2025',label:'2025'},{k:'2026pre',label:'01–04/26'}];
+  const fields = [
+    {f:'months',     label:'Monate mit Voraussetzung', ph:'0', step:'1',   max:'12'},
+    {f:'erwerb',     label:'Erwerb Ehegatte (€/Jahr)', ph:'0', step:'100'},
+    {f:'elterngeld', label:'Elterngeld (€/Jahr)',      ph:'0', step:'100'},
+    {f:'sonst',      label:'Sonst. Einkünfte (€/Jahr)',ph:'0', step:'100'},
+    {f:'kind',       label:'Unterhalt/Waise Kind 1&2 (€/Jahr)', ph:'0', step:'50'}
+  ];
+  const c = document.getElementById('yearRows79a'); c.innerHTML='';
+  years.forEach(y=>{
+    const r = document.createElement('div');
+    r.className='year-row';
+    let html = '<div class="ylbl">'+y.label+'</div>';
+    fields.forEach(fd=>{
+      html += '<div class="yc">'+
+        '<span class="ycl">'+fd.label+'</span>'+
+        '<input type="number" min="0"'+(fd.max?' max="'+fd.max+'"':'')+
+        ' value="0" step="'+fd.step+'" data-y="'+y.k+'" data-f="'+fd.f+'" placeholder="'+fd.ph+'">'+
+      '</div>';
+    });
+    html += '<div class="yc"><span class="ycl">≈ Nachzahlung</span><div class="num" data-y="'+y.k+'" data-f="result">–</div></div>';
+    r.innerHTML = html;
+    c.appendChild(r);
+  });
+}
+buildYearRows();
+
+const fmt = v => v==null? '–' : v.toLocaleString('de-DE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2});
+
+function grundgehalt(order,group,level,period){
+  let tbl;
+  if(order==='A')      tbl = period==='apr25'? A_APR25 : A_MAY26;
+  else if(order==='B') tbl = period==='apr25'? B_APR25 : B_MAY26;
+  else if(order==='W') tbl = period==='apr25'? W_APR25 : W_MAY26;
+  else                 tbl = period==='apr25'? R_APR25 : R_MAY26;
+  if(order==='B') return tbl[group];
+  const row = tbl[group]; if(!row) return null;
+  let idx = level-1;
+  if(period==='may26' && (order==='A' || (order==='R' && group==='R2')) && idx===0) idx=1;
+  const v = row[idx];
+  return (v===undefined||v===null)? null : v;
+}
+
+function erhBetragA(group,career,period){
+  if(period!=='apr25') return 0;
+  if((group==='A5'||group==='A6') && career==='mittlerer_A5A6') return 25.90;
+  if((group==='A9'||group==='A10') && career==='gehobener_A9A10') return 11.30;
+  return 0;
+}
+
+function parseKids(){
+  const n = Math.max(0, Math.min(6, parseInt(document.getElementById('nKids').value)||0));
+  const arr=[];
+  for(let i=1;i<=n;i++){
+    const b = document.querySelector("input[name='kid"+i+"_birth']")?.value||'';
+    const e = document.querySelector("input[name='kid"+i+"_end']")?.value||'';
+    const edu = document.querySelector("select[name='kid"+i+"_edu']")?.value||'no';
+    const pflege = document.querySelector("select[name='kid"+i+"_pflege']")?.value||'no';
+    arr.push({idx:i, birth:b||null, end:e||null, edu:edu==='yes', pflege:pflege==='yes'});
+  }
+  return arr;
+}
+
+function kidMonthsInYear(kid, year, maxMonths){
+  if(!kid.birth) return 0;
+  const [by,bm] = kid.birth.split('-').map(Number);
+  const ageLimit = kid.edu? 25:18;
+  let endY = by+ageLimit, endM = bm-1; if(endM===0){endM=12; endY--;}
+  if(kid.end){ const [ey,em] = kid.end.split('-').map(Number); if(ey<endY || (ey===endY && em<endM)){endY=ey;endM=em;} }
+  const curEndM = maxMonths;
+  let months = 0;
+  for(let m=1; m<=curEndM; m++){
+    const monthsFromBirth = (year-by)*12 + (m-bm);
+    if(monthsFromBirth<0) continue;
+    const monthsToEnd = (endY-year)*12 + (endM-m);
+    if(monthsToEnd<0) continue;
+    months++;
+  }
+  return months;
+}
+
+function firstTwoKids(kids){ return [...kids].sort((a,b)=>{
+  if(!a.birth) return 1; if(!b.birth) return -1;
+  return a.birth.localeCompare(b.birth);
+}).slice(0,2); }
+
+function familienzuschlag(period,married,kids,group){
+  const k = kids.length;
+  if(period==='apr25'){
+    let sum=0;
+    if(married==='married' || (married==='singleparent' && k>0)) sum += FZ_APR25.stufe1_verheiratet;
+    if(k>=1){
+      sum += (FZ_APR25.stufe2_ersterkind - FZ_APR25.stufe1_verheiratet);
+      if(k>=2) sum += FZ_APR25.zweitKind;
+      if(k>2)  sum += (k-2)*FZ_APR25.weitereKinder;
+    }
+    if(['A3','A4','A5'].includes(group) && k>=1) sum += 5.37;
+    if(k>=2){
+      if(group==='A3') sum += (k-1)*26.84;
+      else if(group==='A4') sum += (k-1)*21.47;
+      else if(group==='A5') sum += (k-1)*16.10;
+    }
+    return sum;
+  } else {
+    let sum=0;
+    if(k>=1) sum += FZ_MAY26.ersterkind;
+    if(k>=2) sum += FZ_MAY26.zweitKind;
+    if(k>2)  sum += (k-2)*FZ_MAY26.weitereKinder;
+    return sum;
+  }
+}
+
+function efzMonthly(married,kidsCount,pkv){
+  const k = Math.min(2, kidsCount);
+  if(married==='married'){
+    const base = k===0? EFZ_MAY26.verh_0 : k===1? EFZ_MAY26.verh_1 : EFZ_MAY26.verh_2;
+    return base + (pkv? EFZ_MAY26.pkv_plus[k] : 0);
+  }
+  if(married==='singleparent' && kidsCount>=2) return EFZ_MAY26.allein_2;
+  return 0;
+}
+
+function calc(){
+  const d = {
+    order: document.getElementById('order').value,
+    group: document.getElementById('group').value,
+    level: parseInt(document.getElementById('level').value)||1,
+    career: document.getElementById('career').value,
+    married: document.getElementById('married').value,
+    part: Math.max(0, Math.min(1, parseFloat(document.getElementById('part').value)||1)),
+    pkv: document.getElementById('pkv').checked,
+    extFamilyCurrent: document.getElementById('extFamilyCurrent').checked,
+    case41: document.getElementById('case41').value,
+    refChildN1: parseInt(document.getElementById('ref_child_41_n1').value)||0,
+    m:{2021: parseInt(document.getElementById('m2021').value)||0,
+       2022: parseInt(document.getElementById('m2022').value)||0,
+       2023: parseInt(document.getElementById('m2023').value)||0,
+       2024: parseInt(document.getElementById('m2024').value)||0,
+       2025: parseInt(document.getElementById('m2025').value)||0,
+       '2026pre': parseInt(document.getElementById('m2026pre').value)||0}
+  };
+  const kids = parseKids();
+  const firstTwo = firstTwoKids(kids);
+
+  function buildPeriod(period){
+    const gg  = grundgehalt(d.order,d.group,d.level,period) || 0;
+    const erh = (d.order==='A') ? erhBetragA(d.group,d.career,period) : 0;
+    const fz  = familienzuschlag(period,d.married,kids,d.group);
+    const efz = period==='may26'&&d.extFamilyCurrent ? efzMonthly(d.married, kids.length, d.pkv) : 0;
+    const brutto = (gg+erh+fz+efz) * d.part;
+    return {gg,erh,fz,efz,brutto};
+  }
+  const apr25 = buildPeriod('apr25');
+  const may26 = buildPeriod('may26');
+
+  document.getElementById('tblApr25').innerHTML =
+    '<tr><th>Bestandteil</th><th class="num">Monatsbetrag</th></tr>'+
+    '<tr><td>Grundgehalt</td><td class="num">'+fmt(apr25.gg)+'</td></tr>'+
+    '<tr><td>Laufbahn-Erhöhungsbetrag</td><td class="num">'+fmt(apr25.erh)+'</td></tr>'+
+    '<tr><td>Familienzuschlag</td><td class="num">'+fmt(apr25.fz)+'</td></tr>'+
+    '<tr><td>Ergänz. Familienzuschlag</td><td class="num">'+fmt(apr25.efz)+'</td></tr>'+
+    '<tr class="total-row"><td>Brutto × TZ '+d.part+'</td><td class="num">'+fmt(apr25.brutto)+'</td></tr>';
+  document.getElementById('tblMay26').innerHTML =
+    '<tr><th>Bestandteil</th><th class="num">Monatsbetrag</th></tr>'+
+    '<tr><td>Grundgehalt (neu, Stufe 1 entfällt)</td><td class="num">'+fmt(may26.gg)+'</td></tr>'+
+    '<tr><td>Erhöhungsbetrag (entfällt)</td><td class="num">'+fmt(may26.erh)+'</td></tr>'+
+    '<tr><td>Familienzuschlag (nur Kinder)</td><td class="num">'+fmt(may26.fz)+'</td></tr>'+
+    '<tr><td>Ergänz. FZ Anlage VII</td><td class="num">'+fmt(may26.efz)+'</td></tr>'+
+    '<tr class="total-row"><td>Brutto × TZ '+d.part+'</td><td class="num">'+fmt(may26.brutto)+'</td></tr>';
+
+  const n_79b = (d.m[2021]>0) ? NACHZAHLUNG.einmal2021 : 0;
+  let n_79c = 0;
+  if(d.order==='A' && d.group==='A16') n_79c = NACHZAHLUNG.einmal2025.A16 * d.m[2025];
+  if(d.order==='W' && d.group==='W1') n_79c = NACHZAHLUNG.einmal2025.W1  * d.m[2025];
+  if(d.order==='R' && d.group==='R2') n_79c = NACHZAHLUNG.einmal2025.R2  * d.m[2025];
+  n_79c *= d.part;
+
+  let n_79d = 0;
+  const details79d = [];
+  [2021,2022,2025].forEach(y=>{
+    const maxM = d.m[y];
+    firstTwo.forEach(k=>{
+      const km = Math.min(kidMonthsInYear(k, y, maxM), maxM);
+      const rate = NACHZAHLUNG.kinder['y'+y];
+      const betrag = rate * km * d.part;
+      n_79d += betrag;
+      if(km>0) details79d.push(y+', Kind '+k.idx+': '+km+'·'+fmt(rate)+' = '+fmt(betrag));
+    });
+  });
+
+  let n_79a = 0;
+  const rows79a = [];
+  const yearKeys = ['2021','2022','2023','2024','2025','2026pre'];
+  yearKeys.forEach(y=>{
+    const months = parseInt(document.querySelector("[data-y='"+y+"'][data-f='months']")?.value)||0;
+    const capMonths = Math.min(months, d.m[y]);
+    const erwerb = parseFloat(document.querySelector("[data-y='"+y+"'][data-f='erwerb']")?.value)||0;
+    const elter  = parseFloat(document.querySelector("[data-y='"+y+"'][data-f='elterngeld']")?.value)||0;
+    const sonst  = parseFloat(document.querySelector("[data-y='"+y+"'][data-f='sonst']")?.value)||0;
+    const kindE  = parseFloat(document.querySelector("[data-y='"+y+"'][data-f='kind']")?.value)||0;
+
+    let applicable = d.case41!=='none' && capMonths>0;
+    let note='';
+    let effMonths = capMonths;
+    if(d.case41==='n1'){
+      const kid = kids[d.refChildN1-1];
+      if(!kid || !kid.birth){ applicable=false; note='Nr. 1: Bezugskind mit Geburtsdatum wählen'; }
+      else {
+        const [by,bm] = kid.birth.split('-').map(Number);
+        const yNum = y==='2026pre'? 2026 : parseInt(y);
+        const maxMo = y==='2026pre'? 4:12;
+        let below1=0;
+        for(let m=1;m<=maxMo;m++){
+          const monthsFromBirth = (yNum-by)*12 + (m-bm);
+          if(monthsFromBirth>=0 && monthsFromBirth<12) below1++;
+        }
+        if(capMonths>below1){ note='begrenzt auf '+below1+' M. (Kind < 1 J.)'; }
+        effMonths = Math.min(capMonths, below1);
+        applicable = effMonths>0;
+      }
+    }
+    if(d.case41==='a' && kids.length<2){ applicable=false; note='§ 41a setzt 2+ Kinder voraus'; }
+
+    // Jahresbeträge → Monatsschnitt (anrechenbares Einkommen pro Monat)
+    const jahreseink = erwerb + elter + sonst + kindE;
+    const monatseink = effMonths>0 ? jahreseink/effMonths : 0;
+    const monatsbetrag = applicable ? efzMonthly(d.case41==='a'?'singleparent':'married', kids.length, d.pkv) : 0;
+    const diff = Math.max(0, monatsbetrag - monatseink);
+    const betrag = applicable ? (diff * effMonths * d.part) : 0;
+    document.querySelector("[data-y='"+y+"'][data-f='result']").innerHTML =
+      applicable ? fmt(betrag)+' <span class="muted">('+effMonths+' M.)</span>'
+                 : '<span class="muted">—'+(note?' '+note:'')+'</span>';
+    n_79a += betrag;
+    if(applicable && betrag>0)
+      rows79a.push(y+': '+effMonths+' M. × ('+fmt(monatsbetrag)+' − '+fmt(monatseink)+'/Mon.) = '+fmt(betrag));
+  });
+
+  const monate_3p = Math.max(0, d.m[2025]-3) + d.m['2026pre'];
+  const diff3 = (apr25.brutto - apr25.brutto/1.03) * monate_3p;
+  const hasKidge3 = kids.length>=3;
+  const n_79e_hint = hasKidge3? '—: per RVO (nicht automatisch)' : 'nicht einschlägig (< 3 Kinder)';
+  const total = n_79a + n_79b + n_79c + n_79d + diff3;
+
+  document.getElementById('tblNach').innerHTML =
+    '<tr><th>Anspruch</th><th>Berechnung</th><th class="num">Betrag</th></tr>'+
+    '<tr><td><strong>§ 79b</strong> – Einmalzahlung 2021<br><span class="muted">138 € einmalig, wenn 2021 Dienstbezug</span></td><td>138 € × '+(d.m[2021]>0?1:0)+'</td><td class="num">'+fmt(n_79b)+'</td></tr>'+
+    '<tr><td><strong>§ 79c</strong> – Einmalzahlung 2025<br><span class="muted">nur A 16 / W 1 / R 2</span></td><td>'+((d.order==='A'&&d.group==='A16')?'19,75 €':(d.order==='W'&&d.group==='W1')?'20,67 €':(d.order==='R'&&d.group==='R2')?'23,00 €':'–')+' × '+d.m[2025]+' × TZ '+d.part+'</td><td class="num">'+fmt(n_79c)+'</td></tr>'+
+    '<tr><td><strong>§ 79d</strong> – Kinder 1 &amp; 2<br><span class="muted">41/9/52 €, nur bei Kindergeldanspruch</span></td><td>'+(details79d.length? details79d.join('<br>') : '—')+'</td><td class="num">'+fmt(n_79d)+'</td></tr>'+
+    '<tr><td><strong>§ 79a</strong> – Ergänz. FZ rückwirkend<br><span class="muted">§ 41/41a-Konstellation, Einkommen abgezogen</span></td><td>'+(rows79a.length? rows79a.join('<br>') : '— (Sonderfall nicht angegeben)')+'</td><td class="num">'+fmt(n_79a)+'</td></tr>'+
+    '<tr><td><strong>§ 79e</strong> – 3+ Kinder 2017–04/26<br><span class="muted">per Rechtsverordnung BMI</span></td><td class="muted">'+n_79e_hint+'</td><td class="num">—</td></tr>'+
+    '<tr><td><strong>3 %-Anhebung</strong> 07/2025–04/2026<br><span class="muted">rückwirkend auf Brutto</span></td><td>Brutto × (1−1/1,03) × '+monate_3p+' M.</td><td class="num">'+fmt(diff3)+'</td></tr>'+
+    '<tr class="total-row"><td colspan="2">Summe Brutto-Nachzahlung (ohne § 79e)</td><td class="num">'+fmt(total)+'</td></tr>';
+
+  document.getElementById('summary').innerHTML =
+    '<p>Laufende Besoldung <span class="pill">04/2025</span>: <strong>'+fmt(apr25.brutto)+'</strong> / Monat brutto.</p>'+
+    '<p>Ab <span class="pill">05/2026</span>: <strong>'+fmt(may26.brutto)+'</strong> / Monat (Δ '+fmt(may26.brutto - apr25.brutto)+').</p>'+
+    '<p>Voraussichtliche <strong>Brutto-Nachzahlung</strong>: <strong class="ok">'+fmt(total)+'</strong></p>'+
+    '<p class="legal">Hinweise: (a) Bereits per Abschlag gezahlte Beträge (seit 09/2025) sind <em>abzuziehen</em>. (b) § 79a ist Näherung mit Anlage VII 05/2026 als Monatsbetrag. (c) § 79e (3+ Kinder) wird durch Rechtsverordnung beziffert. (d) Kinder zählen nur mit Kindergeldanspruch § 32 EStG.</p>';
+}
+document.getElementById('calc').addEventListener('click', calc);
+
+buildKids();
+calc();
+</script>
+</body>
+</html>
+'<tr><td><strong>§ 79c</strong> – Einmalzahlung 2025<br><span class="muted">100/200/300 € pro Monat 01-03/25 für A16/W1/R2</span></td><td>'+(d.order==='A'&&d.group==='A16'?'100':d.order==='W'&&d.group==='W1'?'200':d.order==='R'&&d.group==='R2'?'300':'0')+' € × '+d.m[2025]+' × TZ '+d.part+'</td><td class="num">'+fmt(n_79c)+'</td></tr>'+
+    '<tr><td><strong>§ 79d</strong> – Kinder 1 &amp; 2<br><span class="muted">41/9/52 € pro Kind·Monat 2021/2022/2025</span></td><td>'+(details79d.length? details79d.join('<br>') : '–')+'</td><td class="num">'+fmt(n_79d)+'</td></tr>'+
+    '<tr><td><strong>§ 79a</strong> – rückwirkender ergänz. Familienzuschlag<br><span class="muted">'+({none:'kein Sonderfall gewählt',n1:'N
