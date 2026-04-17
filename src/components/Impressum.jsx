@@ -14,7 +14,7 @@ const Impressum = ({ onBack }) => {
         </p>
 
         <h3 className="mt-6">Kontakt</h3>
-        <p>E-Mail: martinberelson@googlemail.com</p>
+        <p>E-Mail: berelsonm@googlemail.com</p>
 
         <h3 className="mt-6">Haftungsausschluss (Disclaimer)</h3>
         <p>
