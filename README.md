@@ -22,30 +22,31 @@ Live: **https://DEIN-GH-NAME.github.io/balimentg-rechner/**
 
 **Kein Tracking. Keine Cookies. Keine Serverkommunikation.** Alle Eingaben bleiben lokal im Browser des Nutzers.
 
-## Technik
+## Technik (v2.0)
 
-Eine einzelne `index.html` mit Vanilla-JS, ohne Abhaengigkeiten. Haelt sich an Tabellen und Paragraphen des Referentenentwurfs. Keine Build-Pipeline noetig.
+Der Rechner wurde auf eine moderne **React + Vite** Architektur portiert.
+- Komponentenbasierte Benutzerführung (Step-by-Step Wizard)
+- Premium Vanilla CSS Design (Glassmorphism, Dark Mode)
+- Ausgelagerte Berechnungslogik (`src/logic/calculator.js`)
 
 ## Tests
 
-Im Repo befindet sich eine Node-Testdatei `test.js`, die die Kernfunktionen pruefen kann (`node test.js`), sofern Node.js installiert ist. Sie parst die Skriptsektion von `index.html` und evaluiert die Funktionen direkt.
+Im Repo befindet sich eine Node-Testdatei `test.js`, die die Kernfunktionen prüft (`node test.js`). Diese wurde als ES Modul portiert und referenziert die ausgelagerten Logik-Funktionen aus dem React-Code.
 
 ## Lokaler Start
 
-Einfach `index.html` im Browser oeffnen (Doppelklick). Fuer Hot-Reload z. B.:
+Voraussetzung: [Node.js](https://nodejs.org/)
 
 ```bash
-python3 -m http.server 8080
-# oder
-npx serve .
+npm install
+npm run dev
 ```
+Der Rechner ist danach unter `http://localhost:5173/` erreichbar.
 
 ## Deployment auf GitHub Pages
 
-1. Repository erstellen (Name z. B. `balimentg-rechner`).
-2. Dateien dieses Ordners committen und pushen.
-3. Settings &rarr; Pages &rarr; Source: `Deploy from a branch`, Branch: `main`, Folder: `/ (root)`.
-4. Nach ca. 1 Minute ist die Seite unter `https://<name>.github.io/balimentg-rechner/` erreichbar.
+1. `npm run build` ausführen.
+2. Den generierten Ordner `dist/` deployen.
 
 ## Lizenz
 

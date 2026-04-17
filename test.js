@@ -1,29 +1,10 @@
-const fs = require('fs');
-const html = fs.readFileSync('./index.html','utf8');
-const js = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-
-const defaults = {order:'A',group:'A9',level:'3',career:'none',married:'single',part:'1',
-  case41:'none',nKids:'0',m2021:'12',m2022:'12',m2023:'12',m2024:'12',m2025:'12',m2026pre:'4',
-  ref_child_41_n1:'0',kidsContainer:'',yearRows79a:'',tblApr25:'',tblMay26:'',tblNach:'',
-  summary:'',maxDuration:'-'};
-
-global.document = {
-  elements:{},
-  getElementById(id){
-    if(!this.elements[id]){
-      this.elements[id]={
-        value:defaults[id]||'',checked:false,innerHTML:'',disabled:false,
-        addEventListener:()=>{},appendChild:()=>{}
-      };
-    }
-    return this.elements[id];
-  },
-  createElement(){return {value:'',textContent:'',innerHTML:'',className:'',appendChild:()=>{}};},
-  querySelector(){return null;},
-  querySelectorAll(){return [];}
-};
-
-try { eval(js); } catch(e){ console.log('(Init-Warn:',e.message,')'); }
+import {
+  grundgehalt,
+  kidMonthsInYear,
+  efzMonthly,
+  familienzuschlag,
+  firstTwoKids
+} from './src/logic/calculator.js';
 
 let pass = 0, fail = 0;
 function t(label, got, expected, tol){
