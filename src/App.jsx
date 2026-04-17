@@ -6,6 +6,7 @@ import Step3_Months from './components/Step3_Months';
 import Step4_SpecialCase from './components/Step4_SpecialCase';
 import Step5_Result from './components/Step5_Result';
 import Impressum from './components/Impressum';
+import FAQ from './components/FAQ';
 import { calculateAll } from './logic/calculator';
 
 function App() {
@@ -147,6 +148,8 @@ function App() {
           </>
           )}
         </div>
+
+        {view === 'wizard' && <FAQ />}
 
         <footer style={{ marginTop: '2rem', textAlign: 'center', opacity: 0.6 }}>
           <p className="text-sm">⚠️ Dies ist ein privates Werkzeug zur Abschätzung. Keine Rechtsberatung. Alle Daten bleiben lokal.</p>
