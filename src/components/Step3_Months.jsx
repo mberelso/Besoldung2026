@@ -19,13 +19,13 @@ const Step3_Months = ({ months, onChange }) => {
   return (
     <div className="wizard-step">
       <h2>3. Monate mit Dienstbezug</h2>
-      <p className="sub mb-6">Wie viele Monate jedes Kalenderjahres hattest du beim Bund ein aktives Gehalt?</p>
+      <p className="sub mb-6">Für wie viele Monate im jeweiligen Kalenderjahr hattest du Anspruch auf volle Dienstbezüge?</p>
       
       <div className="glass-card mb-6" style={{ background: 'rgba(79, 70, 229, 0.05)', borderColor: 'var(--primary-light)' }}>
         <p className="text-sm">
-          <strong>Typisch: 12 je Jahr.</strong> Ausnahmen: Ernennung mitten im Jahr, Elternzeit (du selbst), 
-          Beurlaubung ohne Bezüge, Versetzung zu einem anderen Dienstherrn. <br/>
-          Für 01–04/2026: maximal 4 Monate.
+          <strong>Regelfall: 12 Monate.</strong> Ausnahmen sind bspw. eine Ernennung im Laufe des Jahres, eigene Elternzeit, 
+          unbezahlter Urlaub oder ein Wechsel des Dienstherrn. <br/>
+          (für 01–04/2026 trag hier bitte maximal 4 Monate ein)
         </p>
       </div>
 

@@ -15,8 +15,8 @@ const Step4_SpecialCase = ({ data, kids, incomes, onParamChange, onIncomeChange 
 
   return (
     <div className="wizard-step">
-      <h2>4. Sonderfall § 41 / § 41a</h2>
-      <p className="sub mb-6 text-warning">Optional – Nur ausfüllen, wenn in der Vergangenheit Besonderheiten vorlagen.</p>
+      <h2>4. Besondere Lebenslagen (Sonderfälle)</h2>
+      <p className="sub mb-6 text-warning">Optional – Nur ausfüllen, wenn Besonderheiten (wie z. B. Elternzeit des Ehegatten oder Pflegefälle) innerhalb der letzten Jahre vorlagen.</p>
 
       <div className="glass-card mb-6">
         <label>Tatbestand
@@ -64,15 +64,15 @@ const Step4_SpecialCase = ({ data, kids, incomes, onParamChange, onIncomeChange 
       {showTable && (
         <div className="mt-8">
           <h3 className="mb-4">Pro Jahr: Einkommen des Ehegatten & Monate</h3>
-          <p className="text-sm text-muted mb-4">Nur für Jahre ausfüllen, in denen die oben gewählte Voraussetzung lag.</p>
+          <p className="text-sm text-muted mb-4">Nur für Jahre ausfüllen, in denen die oben gewählte Voraussetzung vorlag.</p>
           
           <div style={{ overflowX: 'auto', paddingBottom: '1rem' }}>
             <table className="result-table" style={{ width: '100%', minWidth: '700px' }}>
               <thead>
                 <tr>
                   <th style={{width: '90px'}}>Jahr</th>
-                  <th>Monate m. V.</th>
-                  <th>Erwerb (€/J)</th>
+                  <th>Betroffene Monate</th>
+                  <th>Bruttoerwerb (€/Jahr)</th>
                   <th>Elterngeld (€/J)</th>
                   <th>Sonst (€/J)</th>
                   <th>Kind 1/2 (€/J)</th>

@@ -36,7 +36,7 @@ const Step1_PersonalData = ({ data, onChange }) => {
   return (
     <div className="wizard-step">
       <h2>1. Persönliche Daten</h2>
-      <p className="sub mb-6">Alle Angaben stehen auf deiner Besoldungsmitteilung.</p>
+      <p className="sub mb-6">Die meisten benötigten Daten findest du auf deiner aktuellen Besoldungsmitteilung.</p>
 
       <div className="grid cols-2 gap-4">
         <div className="form-group">
@@ -107,16 +107,16 @@ const Step1_PersonalData = ({ data, onChange }) => {
         <label className="checkbox-wrap">
           <input type="checkbox" checked={data.pkv} onChange={handleCheckChange('pkv')} />
           <div>
-            Ehegatte in <strong>PKV</strong> oder <strong>freiw. GKV</strong>
-            <span className="hint">Nur wenn Ehegatte selbst versichert ist (erhöht Anlage VII).</span>
+            Ehegatte in <strong>PKV</strong> oder <strong>freiwilliger GKV</strong>
+            <span className="hint">Ankreuzen, wenn der Ehegatte selbst beitragspflichtig versichert ist (wirkt sich auf den gesetzlichen Krankenversicherungszuschuss aus).</span>
           </div>
         </label>
         
         <label className="checkbox-wrap">
           <input type="checkbox" checked={data.extFamilyCurrent} onChange={handleCheckChange('extFamilyCurrent')} />
           <div>
-            Sonderfall läuft <strong>heute noch</strong>
-            <span className="hint">Nur wenn §41-Voraussetzungen aktuell erfüllt sind (z.B. Elternzeit).</span>
+            Besondere persönliche Situation dauert <strong>heute noch</strong> an
+            <span className="hint">Setze hier ein Häkchen, falls ein Sonderfall für dich (wie z. B. Elternzeit deines Partners) aktuell noch gilt. Mehr Details dazu folgen in Schritt 4.</span>
           </div>
         </label>
       </div>

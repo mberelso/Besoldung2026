@@ -26,11 +26,11 @@ const Step2_Kids = ({ kids, onChange }) => {
   return (
     <div className="wizard-step">
       <h2>2. Angaben zu Kindern</h2>
-      <p className="sub mb-6">Kinder sind entscheidend für Familienzuschlag und drei der fünf Nachzahlungs-Töpfe.</p>
+      <p className="sub mb-6">Die Anzahl und das Alter der Kinder sichern dir entscheidende Ansprüche – sowohl beim laufenden Familienzuschlag als auch bei den baldigen Nachzahlungen.</p>
 
       <div className="form-group" style={{ background: 'var(--bg-main)', padding: '1.5rem', borderRadius: 'var(--radius-md)' }}>
         <label className="flex items-center gap-4" style={{ fontSize: '1.1rem', margin: 0 }}>
-          Wie viele Kinder hast/hattest du im Zeitraum 2021–heute?
+          Für wie viele Kinder bestand zwischen 2021 und heute Anspruch auf Kindergeld?
           <input 
             type="number" min="0" max="6" 
             value={kids.length} 
@@ -57,7 +57,7 @@ const Step2_Kids = ({ kids, onChange }) => {
                   </label>
                 </div>
                 <div className="form-group">
-                  <label>Ende FZ-Anspruch (optional)
+                  <label>Ende Anspruch Familienzuschlag (optional)
                     <input 
                       type="month" 
                       value={kid.end} 
