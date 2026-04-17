@@ -8,13 +8,13 @@ const Impressum = ({ onBack }) => {
       <div className="glass-card mb-6" style={{ padding: '2rem' }}>
         <h3>Angaben gemäß § 5 TMG</h3>
         <p>
-          Martin Berelso<br />
-          [Musterstraße 1]<br />
-          [12345 Musterstadt]
+          Martin Berelson<br />
+          Emilienstraße 14<br />
+          04107 Leipzig
         </p>
 
         <h3 className="mt-6">Kontakt</h3>
-        <p>E-Mail: [muster@email.de]</p>
+        <p>E-Mail: martinberelson@googlemail.com</p>
 
         <h3 className="mt-6">Haftungsausschluss (Disclaimer)</h3>
         <p>
