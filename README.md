@@ -2,7 +2,7 @@
 
 Interaktiver **Besoldungs- und Nachzahlungsrechner** fuer den Bund auf Basis des Referentenentwurfs zum **Bundesalimentationsgesetz (BAlimentG)** des BMI (Stand 14.04.2026).
 
-Live: **https://DEIN-GH-NAME.github.io/balimentg-rechner/**
+Live: **https://DEIN-GH-NAME.github.io/Besoldung2026/**
 
 ## Was er kann
 
