@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Besoldungs- & Nachzahlungsrechner · Besoldung2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel" src="TopBar.jsx"></script>
+  <script type="text/babel" src="WizardProgress.jsx"></script>
+  <script type="text/babel" src="Fields.jsx"></script>
+  <script type="text/babel" src="Steps.jsx"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const LABELS = ['Person', 'Kinder', 'Monate', 'Sonderfälle', 'Ergebnis'];
+
+    function App() {
+      const [step, setStep] = useState(1);
+      const [data, setData] = useState({
+        order: 'A', group: 'A 12', level: 5,
+        married: 'married', part: 1.00, career: 'gehobener_A9A10',
+        pkv: false, extFamilyCurrent: false,
+        case41: 'none'
+      });
+      const [kids, setKids] = useState([
+        { birth: '2018-03', end: '', edu: false, pflege: false },
+        { birth: '2021-11', end: '', edu: false, pflege: false }
+      ]);
+      const [months, setMonths] = useState({ '2021': 12, '2022': 12, '2023': 12, '2024': 12, '2025': 12, '2026pre': 4 });
+
+      const update = p => setData({ ...data, ...p });
+      const setKidCount = n => {
+        const arr = [...kids];
+        while (arr.length < n) arr.push({ birth: '', end: '', edu: false, pflege: false });
+        while (arr.length > n) arr.pop();
+        setKids(arr);
+      };
+
+      const stepBody = {
+        1: <Step1 data={data} onChange={update} />,
+        2: <Step2 kids={kids} onKidCount={setKidCount} />,
+        3: <Step3 months={months} onChange={setMonths} />,
+        4: <Step4 data={data} onChange={update} />,
+        5: <Step5 />
+      }[step];
+
+      return (
+        <div className="shell">
+          <TopBar />
+
+          <div className="page-title">
+            <div className="page-eyebrow">— Vom Entwurf zur Zahl ✎</div>
+            <h1 className="page-h1">Was steht dir ab 2026 zu?</h1>
+            <p className="page-sub">Ein geführter Assistent in fünf Abschnitten. Er berechnet dein künftiges Brutto-Gehalt und die Summe aller Nachzahlungen nach dem Besoldungsreform­gesetz (BBVAnpG 2026).</p>
+          </div>
+
+          <WizardProgress step={step} total={5} labels={LABELS} />
+
+          <div className="paper-card">
+            <span className="ch-tr"></span><span className="ch-bl"></span>
+            {stepBody}
+            <div className="btn-row">
+              <button className="btn btn-ghost" onClick={() => setStep(Math.max(1, step - 1))} disabled={step === 1}>
+                <svg viewBox="0 0 20 20"><path d="M12 4 L6 10 L12 16" /></svg>
+                Zurück
+              </button>
+              <div style={{ fontFamily: 'var(--font-hand)', color: 'var(--stone-deep)', fontSize: 16 }}>
+                Schritt {step} von 5
+              </div>
+              {step < 5 ? (
+                <button className="btn btn-primary" onClick={() => setStep(step + 1)}>
+                  Weiter
+                  <svg viewBox="0 0 20 20"><path d="M8 4 L14 10 L8 16" /></svg>
+                </button>
+              ) : (
+                <button className="btn btn-primary" onClick={() => window.print()}>
+                  Als PDF speichern
+                  <svg viewBox="0 0 20 20"><path d="M4 14 V16 H16 V14 M10 3 V13 M5 8 L10 13 L15 8"/></svg>
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="foot">
+            <span className="foot-hand">— Ein Werkzeug, kein Bescheid. ✎</span>
+            Die Berechnung ist unverbindlich. Grundlage: Entwurf BBVAnpG 2026 &middot; BBesG &middot; BBhV.
+            <br/>
+            <a href="#">Zurück zur Startseite</a> &nbsp;·&nbsp; <a href="#">Methodik & Quellen</a>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+  </script>
+</body>
+</html>

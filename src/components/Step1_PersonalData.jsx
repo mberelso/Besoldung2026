@@ -120,6 +120,45 @@ const Step1_PersonalData = ({ data, onChange }) => {
           </div>
         </label>
       </div>
+
+      <h3 className="mt-8">Steuer & Abzüge (für Netto-Näherung)</h3>
+      <p className="sub mb-4">Optional: Gib hier deine Steuermerkmale ein, um dein geschätztes Nettoeinkommen zu berechnen.</p>
+      
+      <div className="grid cols-3 gap-4">
+        <div className="form-group">
+          <label>Steuerklasse
+            <select value={data.taxClass} onChange={e => onChange({ taxClass: e.target.value })}>
+              <option value="1">Klasse I (ledig, ohne Kind)</option>
+              <option value="2">Klasse II (alleinerziehend)</option>
+              <option value="3">Klasse III (verheiratet, Besserverdiener)</option>
+              <option value="4">Klasse IV (verheiratet, gleich verdienend)</option>
+              <option value="5">Klasse V (verheiratet, Geringverdiener)</option>
+              <option value="6">Klasse VI (Zweitjob)</option>
+            </select>
+          </label>
+        </div>
+        
+        <div className="form-group">
+          <label>Kirchensteuer
+            <select value={data.kistRate} onChange={handleNumChange('kistRate')}>
+              <option value="0">Keine (0%)</option>
+              <option value="0.08">8% (Bayern, BaWü)</option>
+              <option value="0.09">9% (andere Bundesländer)</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>PKV Beitrag (monatlich in €)
+            <input 
+              type="number" min="0" step="1" 
+              value={data.pkvMonthly} onChange={handleNumChange('pkvMonthly')} 
+              placeholder="z.B. 300"
+            />
+            <span className="hint">Für das verfügbare Einkommen</span>
+          </label>
+        </div>
+      </div>
     </div>
   );
 };

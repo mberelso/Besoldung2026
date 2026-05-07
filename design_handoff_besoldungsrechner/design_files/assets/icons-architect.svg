@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    
+  </defs>
+
+  <symbol id="i-compass" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7.5"></circle>
+    <path d="M13.2 6.8 L10 10 L6.8 13.2 L10 10 Z M13.2 6.8 L10.8 9.2 M6.8 13.2 L9.2 10.8"></path>
+    <circle cx="10" cy="10" r="0.7" fill="currentColor"></circle>
+  </symbol>
+
+  <symbol id="i-ruler" viewBox="0 0 20 20">
+    <path d="M3 13 L13 3 L17 7 L7 17 Z"></path>
+    <path d="M5 13 L6 12 M7 11 L8.5 9.5 M10 8 L11 7 M12.5 5.5 L13.5 4.5" stroke-width="1"></path>
+  </symbol>
+
+  <symbol id="i-pencil" viewBox="0 0 20 20">
+    <path d="M3 17 L4 13 L14 3 L17 6 L7 16 Z"></path>
+    <path d="M12 5 L15 8"></path>
+    <path d="M3 17 L6 16" stroke-width="1"></path>
+  </symbol>
+
+  <symbol id="i-sun" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="3.5"></circle>
+    <path d="M10 2.5 V4 M10 16 V17.5 M2.5 10 H4 M16 10 H17.5 M4.7 4.7 L5.8 5.8 M14.2 14.2 L15.3 15.3 M4.7 15.3 L5.8 14.2 M14.2 5.8 L15.3 4.7"></path>
+  </symbol>
+
+  <symbol id="i-moon" viewBox="0 0 20 20">
+    <path d="M15.5 12.5 A6.5 6.5 0 1 1 7.5 4.5 A5 5 0 0 0 15.5 12.5 Z"></path>
+  </symbol>
+
+  <symbol id="i-check" viewBox="0 0 20 20">
+    <path d="M4 10.5 L8.5 15 L16 6"></path>
+  </symbol>
+
+  <symbol id="i-arrow-right" viewBox="0 0 20 20">
+    <path d="M4 10 H16 M11 5 L16 10 L11 15"></path>
+  </symbol>
+
+  <symbol id="i-arrow-left" viewBox="0 0 20 20">
+    <path d="M16 10 H4 M9 5 L4 10 L9 15"></path>
+  </symbol>
+
+  <symbol id="i-plus" viewBox="0 0 20 20">
+    <path d="M10 4 V16 M4 10 H16"></path>
+  </symbol>
+
+  <symbol id="i-minus" viewBox="0 0 20 20">
+    <path d="M4 10 H16"></path>
+  </symbol>
+
+  <symbol id="i-info" viewBox="0 0 20 20">
+    <circle cx="10" cy="10" r="7.5"></circle>
+    <path d="M10 9 V14 M10 6.5 V6.6" stroke-linecap="round"></path>
+  </symbol>
+
+  <symbol id="i-warning" viewBox="0 0 20 20">
+    <path d="M10 3 L17.5 16.5 H2.5 Z"></path>
+    <path d="M10 8 V12 M10 14.5 V14.6"></path>
+  </symbol>
+
+  <symbol id="i-calendar" viewBox="0 0 20 20">
+    <rect x="3" y="5" width="14" height="12" rx="1"></rect>
+    <path d="M3 8.5 H17 M7 3 V6 M13 3 V6"></path>
+    <circle cx="7" cy="12" r="0.5" fill="currentColor" stroke="none"></circle>
+    <circle cx="10" cy="12" r="0.5" fill="currentColor" stroke="none"></circle>
+    <circle cx="13" cy="12" r="0.5" fill="currentColor" stroke="none"></circle>
+  </symbol>
+
+  <symbol id="i-chevron-down" viewBox="0 0 20 20">
+    <path d="M5 8 L10 13 L15 8"></path>
+  </symbol>
+
+  <symbol id="i-chevron-up" viewBox="0 0 20 20">
+    <path d="M5 12 L10 7 L15 12"></path>
+  </symbol>
+
+  <symbol id="i-euro" viewBox="0 0 20 20">
+    <path d="M15 5.5 A6 6 0 0 0 6 8.5 A6 6 0 0 0 15 14.5"></path>
+    <path d="M3 8.5 H11 M3 11.5 H10"></path>
+  </symbol>
+
+  <symbol id="i-family" viewBox="0 0 20 20">
+    <circle cx="6.5" cy="6" r="2"></circle>
+    <circle cx="13.5" cy="6" r="2"></circle>
+    <path d="M3 16 C3 13 4.5 11.5 6.5 11.5 C8.5 11.5 10 13 10 16"></path>
+    <path d="M10 16 C10 13 11.5 11.5 13.5 11.5 C15.5 11.5 17 13 17 16"></path>
+  </symbol>
+
+  <symbol id="i-briefcase" viewBox="0 0 20 20">
+    <rect x="3" y="6.5" width="14" height="10" rx="0.5"></rect>
+    <path d="M7.5 6.5 V4.5 H12.5 V6.5 M3 11 H17"></path>
+  </symbol>
+
+  <symbol id="i-scale" viewBox="0 0 20 20">
+    <path d="M10 3 V17 M6 17 H14"></path>
+    <path d="M5.5 6.5 H14.5 L11.5 11.5 H2.5 Z" stroke-width="1.2"></path>
+    <path d="M14.5 6.5 L11.5 11.5 M17.5 11.5 L14.5 6.5 L11.5 11.5" stroke-width="1.2"></path>
+  </symbol>
+
+  <symbol id="i-wave" viewBox="0 0 40 20">
+    <path d="M1 10 Q6 4, 11 10 T21 10 T31 10 T41 10" stroke-width="1.2"></path>
+  </symbol>
+
+  <symbol id="i-crosshair" viewBox="0 0 12 12">
+    <path d="M6 1 V11 M1 6 H11" stroke-width="1"></path>
+  </symbol>
+</svg>

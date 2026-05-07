@@ -9,7 +9,7 @@ const Step5_Result = ({ result, data }) => {
       <h2>5. Ergebnis & Zusammenfassung</h2>
       <p className="sub mb-6">Dein errechnetes Brutto-Gehalt und die voraussichtlichen Nachzahlungen.</p>
 
-      <div className="grid cols-2 gap-4 mb-6">
+      <div className="flex flex-col gap-6 mb-6">
         <div className="glass-card">
           <h3 className="mb-4">04/2025 – 04/2026</h3>
           <table className="result-table">
@@ -18,7 +18,21 @@ const Step5_Result = ({ result, data }) => {
               <tr><td>Laufbahn-Erhöhung</td><td className="num">{fmt(result.apr25.erh)}</td></tr>
               <tr><td>Familienzuschlag</td><td className="num">{fmt(result.apr25.fz)}</td></tr>
               <tr><td>Ergänzender Familienzuschlag</td><td className="num">{fmt(result.apr25.efz)}</td></tr>
-              <tr className="total-row"><td>Brutto × TZ</td><td className="num">{fmt(result.apr25.brutto)}</td></tr>
+              <tr className="brutto-row"><td>Brutto × TZ</td><td className="num">{fmt(result.apr25.brutto)}</td></tr>
+              {data.taxClass && result.apr25.taxes && (
+                <>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Lohnsteuer (Näherung)</td><td className="num">{fmt(result.apr25.taxes.lohnsteuer)}</td></tr>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Solidaritätszuschlag</td><td className="num">{fmt(result.apr25.taxes.soli)}</td></tr>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Kirchensteuer</td><td className="num">{fmt(result.apr25.taxes.kirchensteuer)}</td></tr>
+                  <tr className="total-row"><td>Steuer-Netto</td><td className="num">{fmt(result.apr25.netto)}</td></tr>
+                  {parseFloat(data.pkvMonthly) > 0 && (
+                    <>
+                      <tr className="text-sm" style={{opacity: 0.8}}><td>– PKV-Beitrag</td><td className="num">{fmt(parseFloat(data.pkvMonthly))}</td></tr>
+                      <tr className="primary-row"><td>Verfügbar</td><td className="num" style={{fontSize: '1.2rem'}}>{fmt(result.apr25.verfuegbar)}</td></tr>
+                    </>
+                  )}
+                </>
+              )}
             </tbody>
           </table>
         </div>
@@ -31,7 +45,21 @@ const Step5_Result = ({ result, data }) => {
               <tr><td className="text-muted">Erhöhung (entfällt)</td><td className="num">{fmt(result.may26.erh)}</td></tr>
               <tr><td>Familienzuschlag</td><td className="num">{fmt(result.may26.fz)}</td></tr>
               <tr><td>Ergänzender Familienzuschlag</td><td className="num">{fmt(result.may26.efz)}</td></tr>
-              <tr className="total-row"><td>Brutto × TZ</td><td className="num">{fmt(result.may26.brutto)}</td></tr>
+              <tr className="brutto-row"><td>Brutto × TZ</td><td className="num">{fmt(result.may26.brutto)}</td></tr>
+              {data.taxClass && result.may26.taxes && (
+                <>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Lohnsteuer (Näherung)</td><td className="num">{fmt(result.may26.taxes.lohnsteuer)}</td></tr>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Solidaritätszuschlag</td><td className="num">{fmt(result.may26.taxes.soli)}</td></tr>
+                  <tr className="text-sm" style={{opacity: 0.8}}><td>– Kirchensteuer</td><td className="num">{fmt(result.may26.taxes.kirchensteuer)}</td></tr>
+                  <tr className="total-row"><td>Steuer-Netto</td><td className="num">{fmt(result.may26.netto)}</td></tr>
+                  {parseFloat(data.pkvMonthly) > 0 && (
+                    <>
+                      <tr className="text-sm" style={{opacity: 0.8}}><td>– PKV-Beitrag</td><td className="num">{fmt(parseFloat(data.pkvMonthly))}</td></tr>
+                      <tr className="primary-row"><td>Verfügbar</td><td className="num" style={{fontSize: '1.2rem'}}>{fmt(result.may26.verfuegbar)}</td></tr>
+                    </>
+                  )}
+                </>
+              )}
             </tbody>
           </table>
         </div>

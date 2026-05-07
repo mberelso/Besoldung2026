@@ -4,6 +4,7 @@ import {
   FZ_APR25, FZ_MAY26, EFZ_MAY26,
   NACHZAHLUNG, MAX_DURATION, GROUPS
 } from './tables.js';
+import { calculateTaxesMonthly } from './taxCalculator.js';
 
 export { GROUPS, MAX_DURATION };
 
@@ -111,6 +112,19 @@ export function calculateAll(d, kids) {
   }
   const apr25 = buildPeriod('apr25');
   const may26 = buildPeriod('may26');
+
+  // Steuerberechnung
+  const taxClass = d.taxClass || '1';
+  const kistRate = parseFloat(d.kistRate) || 0;
+  const pkvMonthly = parseFloat(d.pkvMonthly) || 0;
+
+  apr25.taxes = calculateTaxesMonthly(apr25.brutto, taxClass, kistRate, kids.length, pkvMonthly);
+  apr25.netto = apr25.taxes.netto;
+  apr25.verfuegbar = apr25.netto - pkvMonthly;
+
+  may26.taxes = calculateTaxesMonthly(may26.brutto, taxClass, kistRate, kids.length, pkvMonthly);
+  may26.netto = may26.taxes.netto;
+  may26.verfuegbar = may26.netto - pkvMonthly;
 
   // Nachzahlungen
   const n_79b = (d.m[2021]>0) ? NACHZAHLUNG.einmal2021 : 0;

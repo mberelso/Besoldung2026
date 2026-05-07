@@ -7,6 +7,7 @@ Live: **https://DEIN-GH-NAME.github.io/Besoldung2026/**
 ## Was er kann
 
 - Laufende Brutto-Besoldung fuer Bundesordnungen **A / B / W / R** nach Anlage IV des Entwurfs
+- **Netto-Rechner (Näherung):** Berechnet geschätzte Lohnsteuer, Soli, Kirchensteuer und berücksichtigt PKV-Beiträge zur Ermittlung des verfügbaren Einkommens.
 - Familienzuschlag nach Anlage V (alt + neu ab 05/2026)
 - Ergaenzender Familienzuschlag (&sect; 41 / &sect; 41a) nach Anlage VII inkl. PKV-Zuschlag
 - **Nachzahlungsrechner** fuer

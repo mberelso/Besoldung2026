@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" fill="none">
+  
+  <g stroke="#14465c" stroke-linecap="round" stroke-linejoin="round">
+    
+    <circle cx="32" cy="32" r="22" stroke-width="1.5"></circle>
+    
+    <path d="M32 12 L22 44 L42 44 Z" stroke-width="1.5" fill="#faf3e4"></path>
+    <path d="M32 12 L32 44" stroke-width="1"></path>
+    
+    <circle cx="32" cy="12" r="1.6" fill="#14465c"></circle>
+    
+    <circle cx="32" cy="32" r="1.6" fill="#14465c"></circle>
+    
+    <path d="M8 56 Q14 50 20 56 T32 56 T44 56 T56 56" stroke="#3a9cad" stroke-width="1.5" fill="none"></path>
+  </g>
+
+  
+  <g font-family="Fraunces, Georgia, serif" font-weight="500" font-size="22" fill="#0d2a3a" letter-spacing="-0.01em">
+    <text x="68" y="30">Besoldung</text>
+  </g>
+  <g font-family="Caveat, cursive" font-weight="500" font-size="22" fill="#b45c3a">
+    <text x="68" y="52">2026</text>
+  </g>
+  
+  <path d="M68 58 L180 58" stroke="#cdbfa4" stroke-width="1" stroke-dasharray="2 3"></path>
+</svg>

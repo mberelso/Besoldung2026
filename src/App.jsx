@@ -27,7 +27,10 @@ function App() {
       '2021': 12, '2022': 12, '2023': 12, '2024': 12, '2025': 12, '2026pre': 4
     },
     case41: 'none',
-    refChildN1: 0
+    refChildN1: 0,
+    taxClass: '1',
+    kistRate: 0,
+    pkvMonthly: 0
   });
 
   const [kids, setKids] = useState([]);
@@ -38,17 +41,23 @@ function App() {
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
+  // Automatisch nach oben scrollen, wenn sich der Schritt ändert
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50); // Kurzer Timeout für DOM-Updates
+    return () => clearTimeout(timer);
+  }, [currentStep]);
+
   const handleNext = () => {
     // Skip Step 4 if none of the cases apply
     if (currentStep === 3 && data.married === 'single' && kids.length === 0) {
       setData(prev => ({ ...prev, case41: 'none' }));
       setCurrentStep(5);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     
     setCurrentStep(prev => Math.min(prev + 1, totalSteps));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
@@ -57,7 +66,6 @@ function App() {
     } else {
       setCurrentStep(prev => Math.max(prev - 1, 1));
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const result = useMemo(() => {

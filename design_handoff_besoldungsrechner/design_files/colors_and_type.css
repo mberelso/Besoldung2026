@@ -1,0 +1,290 @@
+/* ─────────────────────────────────────────────────────────────
+   Besoldung2026 — Hand-drawn Architect × Sea & Nature Tones
+   ─────────────────────────────────────────────────────────────
+   Philosophy: a draftsman's sketchbook rendered on warm paper.
+   Ink drawn in deep sea blue. Construction lines in pale indigo.
+   Annotations in terracotta. Stone and sand as ground.
+   ─────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* ── Paper & Ground (paper top, sea bottom) ─────────────── */
+  --paper:            #f4ecdc;  /* warm sand — primary background */
+  --paper-deep:       #ead8b8;  /* deeper sand for section breaks */
+  --paper-soft:       #faf3e4;  /* lightest wash, inside cards   */
+  --parchment:        #efe3c8;  /* aged paper accent              */
+  --stone:            #cdbfa4;  /* taupe stone, dimension lines   */
+  --stone-deep:       #9e8d6e;  /* darker stone, secondary text   */
+  --charcoal:         #2f3b42;  /* ink for body text              */
+  --charcoal-soft:    #4a5a63;  /* softer ink                     */
+
+  /* Atmospheric — paper with sea tint applied */
+  --paper-tinted:     #e9ead8;  /* sand kissed by sea mist        */
+  --paper-wash:       #dfe7e3;  /* paper dipped in saltwater      */
+
+  /* ── Sea Palette (expanded — primary accent family) ─────── */
+  --abyss:            #0a2430;  /* deepest sea — near-black ink   */
+  --midnight-sea:     #0f3648;  /* midnight water, rich ink       */
+  --deep-sea:         #134a62;  /* primary brand ink              */
+  --harbor:           #1a6179;  /* harbor water, headings         */
+  --sea:              #217a93;  /* mid ocean, links & keylines    */
+  --aegean:           #2a91a8;  /* bright Aegean wash             */
+  --lagoon:           #3fb0bd;  /* shallow lagoon, interactive    */
+  --turquoise:        #5fc6c9;  /* sunlit turquoise, highlights   */
+  --shore:            #8fd0d0;  /* foam / hover glow              */
+  --seafoam:          #b8e0dc;  /* seafoam fill                   */
+  --mist:             #d5e8e5;  /* distant fog, surface fills     */
+  --salt:             #e8f1ee;  /* lightest sea wash, backgrounds */
+
+  /* ── Nature Accents ─────────────────────────────────────── */
+  --terracotta:       #b45c3a;  /* warning / annotation red       */
+  --clay:             #c88364;  /* soft clay wash                 */
+  --ochre:            #d4a55b;  /* highlighted numbers            */
+  --moss:             #5a7a4a;  /* success / validated             */
+  --sage:             #a8b89b;  /* quiet positive background      */
+  --linen:            #e8dfc7;  /* input field fill                */
+
+  /* ── Ink Colors (semantic) ──────────────────────────────── */
+  --ink:              var(--charcoal);
+  --ink-soft:         var(--charcoal-soft);
+  --ink-faint:        var(--stone-deep);
+  --ink-trace:        var(--stone);
+
+  --fg1:              var(--charcoal);
+  --fg2:              var(--charcoal-soft);
+  --fg3:              var(--stone-deep);
+  --fg-on-dark:       var(--paper);
+  --fg-link:          var(--sea);
+  --fg-link-hover:    var(--deep-sea);
+
+  --bg:               var(--paper);
+  --bg-raised:        var(--paper-soft);
+  --bg-sunk:          var(--paper-deep);
+  --bg-accent:        var(--mist);
+  --bg-sea-wash:      var(--salt);
+  --bg-seafoam:       var(--seafoam);
+  --bg-annotation:    var(--parchment);
+
+  /* A full-page background gradient: paper at top, tide at bottom */
+  --bg-tide: linear-gradient(180deg, var(--paper) 0%, var(--paper) 40%, var(--salt) 78%, var(--mist) 100%);
+
+  /* Surface / Stroke — hand-drawn ink weights */
+  --stroke-hair:      0.75px;
+  --stroke-line:      1.25px;
+  --stroke-bold:      2px;
+  --stroke-heavy:     3px;
+
+  --stroke-ink:       var(--abyss);
+  --stroke-soft:      var(--stone-deep);
+  --stroke-trace:     var(--stone);
+
+  /* ── Semantic ───────────────────────────────────────────── */
+  --primary:          var(--deep-sea);
+  --primary-hover:    var(--midnight-sea);
+  --primary-soft:     var(--mist);
+  --primary-bright:   var(--aegean);
+  --interactive:      var(--lagoon);
+  --interactive-soft: var(--seafoam);
+  --accent:           var(--terracotta);
+  --success:          var(--moss);
+  --success-soft:     var(--sage);
+  --warning:          var(--ochre);
+  --warning-soft:     #f1deae;
+  --danger:           var(--terracotta);
+  --danger-soft:      #e8c3b1;
+
+  /* ── Typography Families ────────────────────────────────── */
+  /* Display / Hand-lettering — architect titling + sketch notes */
+  --font-display:     'Fraunces', 'Playfair Display', Georgia, serif;
+  --font-hand:        'Caveat', 'Segoe Script', cursive;
+  --font-body:        'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:        'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* ── Type Scale (modular, paper-rooted) ─────────────────── */
+  --fs-display:       clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --fs-h1:            clamp(2rem, 3vw + 0.5rem, 2.75rem);
+  --fs-h2:            clamp(1.5rem, 1.5vw + 0.75rem, 1.875rem);
+  --fs-h3:            1.25rem;
+  --fs-h4:            1.0625rem;
+  --fs-body:          1rem;
+  --fs-small:         0.875rem;
+  --fs-xs:            0.75rem;
+  --fs-annotation:    1.125rem; /* hand-drawn notes run larger  */
+  --fs-numeral:       1.0625rem;
+
+  --lh-tight:         1.1;
+  --lh-snug:          1.25;
+  --lh-body:          1.55;
+  --lh-loose:         1.75;
+
+  --ls-tight:         -0.02em;
+  --ls-wide:          0.08em;
+
+  /* ── Spacing (4pt grid, with named paper offsets) ───────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  --gutter:      clamp(1rem, 2vw, 1.5rem);
+  --page-pad:    clamp(1.25rem, 3vw, 3rem);
+  --card-pad:    clamp(1.25rem, 2vw, 2rem);
+
+  /* ── Radii (kept small & irregular-feeling) ─────────────── */
+  --r-sharp:  0;
+  --r-xs:     2px;
+  --r-sm:     4px;
+  --r-md:     6px;
+  --r-lg:     10px;
+  --r-xl:     14px;
+  --r-pill:   999px;
+
+  /* ── Shadows (soft, pencil-drop, never digital glow) ────── */
+  --sh-paper:    0 1px 0 rgba(47, 59, 66, 0.04),
+                 0 2px 4px rgba(47, 59, 66, 0.06);
+  --sh-lifted:   0 2px 0 rgba(47, 59, 66, 0.05),
+                 0 6px 14px -4px rgba(47, 59, 66, 0.12),
+                 0 18px 28px -12px rgba(47, 59, 66, 0.10);
+  --sh-ink:      1px 1.5px 0 var(--abyss);      /* hand-stamp feel  */
+  --sh-ink-soft: 1px 1.5px 0 rgba(13, 42, 58, 0.5);
+  --sh-inset:    inset 0 1px 0 rgba(47, 59, 66, 0.06);
+
+  /* Motion */
+  --ease-paper: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast:   120ms;
+  --dur-med:    220ms;
+  --dur-slow:   360ms;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Semantic element styles
+   ─────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--abyss);
+  font-variation-settings: "opsz" 96;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--deep-sea);
+  font-variation-settings: "opsz" 48;
+}
+h3, .h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  letter-spacing: 0.005em;
+}
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--abyss);
+  font-variation-settings: "opsz" 144;
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  font-size: var(--fs-annotation);
+  line-height: 1.15;
+  color: var(--terracotta);
+  letter-spacing: 0.005em;
+}
+.hand--ink   { color: var(--deep-sea); }
+.hand--stone { color: var(--stone-deep); }
+
+p, .p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg1);
+}
+
+small, .small {
+  font-size: var(--fs-small);
+  color: var(--fg2);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--sea);
+}
+
+.num, code, kbd, samp {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum", "zero";
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+a {
+  color: var(--fg-link);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.25px;
+  text-decoration-color: currentColor;
+  transition: color var(--dur-fast) var(--ease-paper);
+}
+a:hover { color: var(--fg-link-hover); text-decoration: underline; }
+
+hr {
+  border: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--stone) 0 6px,
+    transparent 6px 10px
+  );
+  margin: var(--sp-8) 0;
+}
+
+::selection {
+  background: var(--ochre);
+  color: var(--abyss);
+}
