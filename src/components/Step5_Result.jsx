@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fmt } from '../logic/calculator';
 
+const INFO_TEXTS = {
+  '79b': 'Einmalige Pauschale von 138 € für jeden Beamten, der 2021 im Dienst war – unabhängig von Besoldungsgruppe oder Familie.',
+  '79c': 'Ausgleich für A16/W1/R2, die durch die neue Tabelle 2026 verhältnismäßig weniger Zuwachs erhalten als andere Gruppen.',
+  '79d': 'Nachzahlung für das 1. und 2. Kind rückwirkend ab 2021, weil die bisherigen kindbezogenen Zuschläge verfassungsrechtlich zu niedrig waren.',
+  '79a': 'Rückwirkender ergänzender Familienzuschlag für Sonderfälle (Elternzeit, Pflege). Abzüglich des tatsächlichen Einkommens des Ehegatten.',
+  '79e': 'Für Beamte mit 3+ Kindern. Wird nicht automatisch ausgezahlt, sondern muss individuell per Rechtsverordnung festgesetzt werden.',
+  '3pct': 'Vorläufige Anhebung der Bruttobezüge um 3 % von Juli 2025 bis April 2026 als Überbrückung bis zur neuen Tabelle.',
+};
+
 const Step5_Result = ({ result, data }) => {
+  const [openInfo, setOpenInfo] = useState({});
+
   if (!result) return null;
+
+  const toggleInfo = (key) => setOpenInfo(prev => ({ ...prev, [key]: !prev[key] }));
+
+  const InfoBtn = ({ k }) => (
+    <button
+      className="info-btn no-print"
+      onClick={() => toggleInfo(k)}
+      title="Erklärung anzeigen"
+    >?</button>
+  );
 
   return (
     <div className="wizard-step">
-      <h2>5. Ergebnis & Zusammenfassung</h2>
-      <p className="sub mb-6">Dein errechnetes Brutto-Gehalt und die voraussichtlichen Nachzahlungen.</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+        <div>
+          <h2 style={{ marginBottom: '0.25rem' }}>5. Ergebnis & Zusammenfassung</h2>
+          <p className="sub">Dein errechnetes Brutto-Gehalt und die voraussichtlichen Nachzahlungen.</p>
+        </div>
+        <button className="btn btn-outline no-print" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem', whiteSpace: 'nowrap', marginLeft: '1rem' }} onClick={() => window.print()}>
+          🖨 Drucken / PDF
+        </button>
+      </div>
 
       <div className="flex flex-col gap-6 mb-6">
         <div className="glass-card">
@@ -78,22 +106,25 @@ const Step5_Result = ({ result, data }) => {
             </thead>
             <tbody>
               <tr>
-                <td><strong>Einmalzahlung für 2021 (§ 79b)</strong><br/><span className="text-sm text-muted">138 € einmalig</span></td>
+                <td><strong>Einmalzahlung für 2021 (§ 79b)</strong><InfoBtn k="79b" /><br/><span className="text-sm text-muted">138 € einmalig</span></td>
                 <td>138 € × {data.m['2021'] > 0 ? 1 : 0}</td>
                 <td className="num">{fmt(result.n_79b)}</td>
               </tr>
+              {openInfo['79b'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79b']}</td></tr>}
               <tr>
-                <td><strong>Einmalzahlung für 2025 (§ 79c)</strong><br/><span className="text-sm text-muted">A16/W1/R2</span></td>
+                <td><strong>Einmalzahlung für 2025 (§ 79c)</strong><InfoBtn k="79c" /><br/><span className="text-sm text-muted">A16/W1/R2</span></td>
                 <td>{data.order==='A'&&data.group==='A16'?'19,75 €':data.order==='W'&&data.group==='W1'?'20,67 €':data.order==='R'&&data.group==='R2'?'23,00 €':'–'} × {data.m[2025]} × TZ {data.part}</td>
                 <td className="num">{fmt(result.n_79c)}</td>
               </tr>
+              {openInfo['79c'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79c']}</td></tr>}
               <tr>
-                <td><strong>Nachzahlung Kinder 1 & 2 (§ 79d)</strong><br/><span className="text-sm text-muted">41/9/52 € pro Kind/Mon.</span></td>
+                <td><strong>Nachzahlung Kinder 1 & 2 (§ 79d)</strong><InfoBtn k="79d" /><br/><span className="text-sm text-muted">41/9/52 € pro Kind/Mon.</span></td>
                 <td dangerouslySetInnerHTML={{__html: result.details79d.length ? result.details79d.join('<br>') : '—'}}></td>
                 <td className="num">{fmt(result.n_79d)}</td>
               </tr>
+              {openInfo['79d'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79d']}</td></tr>}
               <tr>
-                <td><strong>Erg. Familienzuschlag rückwirkend (§ 79a)</strong><br/><span className="text-sm text-muted">§ 41/41a abzüglich Einkommen</span></td>
+                <td><strong>Erg. Familienzuschlag rückwirkend (§ 79a)</strong><InfoBtn k="79a" /><br/><span className="text-sm text-muted">§ 41/41a abzüglich Einkommen</span></td>
                 <td>
                   {result.rows79a && result.rows79a.map((r, i) => (
                     <div key={i}><strong>{r.year}:</strong> {r.text}</div>
@@ -102,16 +133,19 @@ const Step5_Result = ({ result, data }) => {
                 </td>
                 <td className="num">{fmt(result.n_79a)}</td>
               </tr>
+              {openInfo['79a'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79a']}</td></tr>}
               <tr>
-                <td><strong>Nachzahlung für 3+ Kinder (§ 79e)</strong> <span className="text-sm text-muted">2017–04/26</span></td>
+                <td><strong>Nachzahlung für 3+ Kinder (§ 79e)</strong><InfoBtn k="79e" /> <span className="text-sm text-muted">2017–04/26</span></td>
                 <td className="text-muted">{result.n_79e_hint}</td>
                 <td className="num">—</td>
               </tr>
+              {openInfo['79e'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79e']}</td></tr>}
               <tr>
-                <td><strong>3 %-Anhebung</strong> 07/2025–04/2026</td>
+                <td><strong>3 %-Anhebung</strong><InfoBtn k="3pct" /> 07/2025–04/2026</td>
                 <td>Brutto × (1−1/1,03) × {result.monate_3p} M.</td>
                 <td className="num">{fmt(result.diff3)}</td>
               </tr>
+              {openInfo['3pct'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['3pct']}</td></tr>}
               <tr className="total-row">
                 <td colSpan="2">Summe Brutto-Nachzahlung (ohne § 79e)</td>
                 <td className="num" style={{ fontSize: '1.2rem' }}>{fmt(result.total)}</td>

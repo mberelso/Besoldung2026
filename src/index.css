@@ -350,6 +350,72 @@ input:focus, select:focus {
   background: rgba(255,255,255,0.03);
 }
 
+/* Info-Zeilen in Nachzahlungstabelle */
+.info-row td {
+  padding: 0.5rem 1rem 1rem 1rem;
+  background: var(--primary-light);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  font-style: italic;
+}
+
+.info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  width: 1.15rem;
+  height: 1.15rem;
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--primary);
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  opacity: 0.8;
+  transition: opacity 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.info-btn:hover {
+  opacity: 1;
+  background: var(--primary-light);
+}
+
+/* FAQ Akkordeon */
+.faq-item {
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+  user-select: none;
+}
+.faq-item:last-child { border-bottom: none; }
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.faq-question-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-main);
+}
+.faq-arrow {
+  font-size: 0.75rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.faq-answer {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
 /* Helpers */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
@@ -375,4 +441,58 @@ input:focus, select:focus {
   .container { padding: 1rem; }
   .wizard-pill { width: 1.8rem; height: 1.8rem; font-size: 0.8rem; }
   .checkbox-wrap { padding: 0.8rem; }
+}
+
+@media print {
+  .bg-blobs { display: none; }
+  .no-print { display: none !important; }
+  .wizard-progress { display: none; }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  header button { display: none; }
+
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    break-inside: avoid;
+  }
+
+  .result-table th {
+    background: #e8e8e8 !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .result-table tr.total-row td {
+    background: #d4edda !important;
+    color: #155724 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .result-table tr.primary-row td {
+    background: #e8e8ff !important;
+    color: #2d2d8e !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  footer { display: none; }
+
+  /* FAQ und Akkordeon ausblenden */
+  .glass-card:has(.faq-item) { display: none; }
 }
