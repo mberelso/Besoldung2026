@@ -159,12 +159,42 @@ function App() {
 
         {view === 'wizard' && <FAQ />}
 
-        <footer style={{ marginTop: '2rem', textAlign: 'center', opacity: 0.6 }}>
-          <p className="text-sm">⚠️ Dies ist ein privates Werkzeug zur Abschätzung. Keine Rechtsberatung. Alle Daten bleiben lokal.</p>
-          <div className="mt-2">
-            <button className="text-sm" style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => { setView('impressum'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-              Impressum & Datenschutz
-            </button>
+        <footer style={{ marginTop: '2rem', textAlign: 'center' }}>
+          <div style={{ marginBottom: '1.25rem' }}>
+            <a
+              href="https://ko-fi.com/mberelso"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: '#FF5E5B',
+                color: 'white',
+                padding: '0.6rem 1.4rem',
+                borderRadius: 'var(--radius-xl)',
+                fontWeight: 600,
+                fontSize: '0.95rem',
+                textDecoration: 'none',
+                boxShadow: '0 4px 12px rgba(255,94,91,0.35)',
+                transition: 'transform 0.15s, box-shadow 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 16px rgba(255,94,91,0.45)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 12px rgba(255,94,91,0.35)'; }}
+            >
+              ☕ Einen Kaffee spendieren
+            </a>
+            <p className="text-sm" style={{ marginTop: '0.5rem', opacity: 0.5 }}>
+              Wenn dir der Rechner geholfen hat – freiwillig & ohne Verpflichtung.
+            </p>
+          </div>
+          <div style={{ opacity: 0.5 }}>
+            <p className="text-sm">⚠️ Dies ist ein privates Werkzeug zur Abschätzung. Keine Rechtsberatung. Alle Daten bleiben lokal.</p>
+            <div className="mt-2">
+              <button className="text-sm" style={{ background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', textDecoration: 'underline' }} onClick={() => { setView('impressum'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                Impressum & Datenschutz
+              </button>
+            </div>
           </div>
         </footer>
       </div>
