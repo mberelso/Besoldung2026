@@ -86,7 +86,7 @@ function App() {
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <div>
             <h1>Besoldungs- & Nachzahlungsrechner (Bund)</h1>
-            <p className="sub" style={{ margin: 0 }}>Basierend auf dem aktuellen Referentenentwurf des Bundesalimentationsgesetzes (BAlimentG)</p>
+            <p className="sub" style={{ margin: 0 }}>Basierend auf dem Referentenentwurf des Bundesalimentationsgesetzes (BAlimentG) inkl. Austauschseite S. 79 (Mai 2026)</p>
           </div>
           <button 
             className="btn btn-outline" 
