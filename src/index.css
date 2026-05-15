@@ -384,6 +384,15 @@ input:focus, select:focus {
   background: var(--primary-light);
 }
 
+.result-table tr.warning-row td {
+  padding: 0.5rem 1rem;
+  background: var(--warning-light);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 3px solid var(--warning);
+}
+
 /* FAQ Akkordeon */
 .faq-item {
   cursor: pointer;

@@ -31,13 +31,17 @@ const Step2_Kids = ({ kids, onChange }) => {
       <div className="form-group glass-card">
         <label className="flex items-center gap-4" style={{ fontSize: '1.1rem', margin: 0, flexWrap: 'wrap' }}>
           Für wie viele Kinder bestand zwischen 2021 und heute Anspruch auf Kindergeld?
-          <input 
-            type="number" min="0" max="6" 
-            value={kids.length} 
-            onChange={handleCountChange} 
+          <input
+            type="number" min="0" max="6"
+            value={kids.length}
+            onChange={handleCountChange}
             style={{ width: '80px', fontSize: '1.2rem', textAlign: 'center' }}
           />
         </label>
+      </div>
+
+      <div className="mt-4 p-4" style={{ backgroundColor: 'var(--warning-light)', borderLeft: '4px solid var(--warning)', borderRadius: 'var(--radius-sm)', fontSize: '0.9rem' }}>
+        <strong>Hinweis § 79d:</strong> Die kindbezogene Nachzahlung gilt nur für das 1. und 2. Kind und nur für die Jahre 2021, 2022 und 2025. Für 2023 und 2024 ist laut Referentenentwurf noch eine gesonderte Rechtsverordnung erforderlich – diese Jahre werden im Rechner daher <strong>nicht</strong> berücksichtigt.
       </div>
 
       {kids.length > 0 && (

@@ -4,7 +4,7 @@ import { fmt } from '../logic/calculator';
 const INFO_TEXTS = {
   '79b': 'Einmalige Pauschale von 138 € für jeden Beamten, der 2021 im Dienst war – unabhängig von Besoldungsgruppe oder Familie.',
   '79c': 'Ausgleich für A16/W1/R2, die durch die neue Tabelle 2026 verhältnismäßig weniger Zuwachs erhalten als andere Gruppen.',
-  '79d': 'Nachzahlung für das 1. und 2. Kind rückwirkend ab 2021, weil die bisherigen kindbezogenen Zuschläge verfassungsrechtlich zu niedrig waren.',
+  '79d': 'Die Nachzahlung gilt für das 1. und 2. Kind (nach Geburtsdatum), weil die bisherigen kindbezogenen Zuschläge verfassungsrechtlich zu niedrig waren. Berücksichtigt werden nur die Jahre 2021 (41 €/Mon.), 2022 (9 €/Mon.) und 2025 (52 €/Mon.) – für 2023 und 2024 ist laut Referentenentwurf eine gesonderte Rechtsverordnung erforderlich, die noch aussteht. Diese Jahre sind daher nicht im berechneten Betrag enthalten.',
   '79a': 'Rückwirkender ergänzender Familienzuschlag für Sonderfälle (Elternzeit, Pflege). Abzüglich des tatsächlichen Einkommens des Ehegatten.',
   '79e': 'Für Beamte mit 3+ Kindern. Wird nicht automatisch ausgezahlt, sondern muss individuell per Rechtsverordnung festgesetzt werden.',
   '3pct': 'Vorläufige Anhebung der Bruttobezüge um 3 % von Juli 2025 bis April 2026 als Überbrückung bis zur neuen Tabelle.',
@@ -123,6 +123,11 @@ const Step5_Result = ({ result, data }) => {
                 <td className="num">{fmt(result.n_79d)}</td>
               </tr>
               {openInfo['79d'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79d']}</td></tr>}
+              <tr className="warning-row">
+                <td colSpan="3">
+                  <span style={{ fontWeight: 600 }}>⚠ 2023 &amp; 2024 noch offen:</span> Für diese zwei Jahre ist laut Referentenentwurf eine separate Rechtsverordnung erforderlich – der Betrag oben enthält sie <strong>nicht</strong>.
+                </td>
+              </tr>
               <tr>
                 <td><strong>Erg. Familienzuschlag rückwirkend (§ 79a)</strong><InfoBtn k="79a" /><br/><span className="text-sm text-muted">§ 41/41a abzüglich Einkommen</span></td>
                 <td>
