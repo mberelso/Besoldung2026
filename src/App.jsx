@@ -29,7 +29,7 @@ function App() {
       '2021': 12, '2022': 12, '2023': 12, '2024': 12, '2025': 12, '2026pre': 4
     },
     case41: 'none',
-    refChildN1: 0,
+    refChildrenN1: [],
     taxClass: '1',
     kistRate: 0,
     pkvMonthly: 0

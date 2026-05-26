@@ -159,16 +159,19 @@ export function calculateAll(d, kids) {
     let note='';
     let effMonths = capMonths;
     if(d.case41==='n1'){
-      const kid = kids.find(k => k.idx === d.refChildN1);
-      if(!kid || !kid.birth){ applicable=false; note='Nr. 1: Bezugskind mit Geburtsdatum wählen'; }
+      const refKids = kids.filter(k => (d.refChildrenN1||[]).includes(k.idx) && k.birth);
+      if(refKids.length===0){ applicable=false; note='Nr. 1: mind. ein Bezugskind mit Geburtsdatum wählen'; }
       else {
-        const [by,bm] = kid.birth.split('-').map(Number);
         const yNum = y==='2026pre'? 2026 : parseInt(y);
         const maxMo = y==='2026pre'? 4:12;
         let below1=0;
         for(let m=1;m<=maxMo;m++){
-          const monthsFromBirth = (yNum-by)*12 + (m-bm);
-          if(monthsFromBirth>=0 && monthsFromBirth<12) below1++;
+          const eligible = refKids.some(kid => {
+            const [by,bm] = kid.birth.split('-').map(Number);
+            const monthsFromBirth = (yNum-by)*12 + (m-bm);
+            return monthsFromBirth>=0 && monthsFromBirth<12;
+          });
+          if(eligible) below1++;
         }
         if(capMonths>below1){ note='begrenzt auf '+below1+' M. (Kind < 1 J.)'; }
         effMonths = Math.min(capMonths, below1);

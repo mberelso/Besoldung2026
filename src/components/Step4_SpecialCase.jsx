@@ -44,17 +44,26 @@ const Step4_SpecialCase = ({ data, kids, incomes, onParamChange, onIncomeChange 
             </div>
             {data.case41 === 'n1' && (
               <div className="form-group mb-0">
-                <label>Bezugskind (bei Nr. 1)
-                  <select 
-                    value={data.refChildN1} 
-                    onChange={e => onParamChange({ refChildN1: parseInt(e.target.value) })}
-                  >
-                    <option value="0">– keines gewählt –</option>
-                    {kids.map(k => (
-                      <option key={k.idx} value={k.idx}>Kind {k.idx}</option>
-                    ))}
-                  </select>
-                </label>
+                <label style={{ marginBottom: '0.4rem', display: 'block' }}>Bezugskinder (bei Nr. 1)</label>
+                {kids.length === 0 && (
+                  <p className="text-sm text-muted">Keine Kinder in Schritt 2 eingetragen.</p>
+                )}
+                {kids.map(k => (
+                  <label key={k.idx} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 400, marginBottom: '0.3rem', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={(data.refChildrenN1 || []).includes(k.idx)}
+                      onChange={e => {
+                        const prev = data.refChildrenN1 || [];
+                        const next = e.target.checked
+                          ? [...prev, k.idx]
+                          : prev.filter(i => i !== k.idx);
+                        onParamChange({ refChildrenN1: next });
+                      }}
+                    />
+                    Kind {k.idx}{k.birth ? ` (geb. ${k.birth})` : ''}
+                  </label>
+                ))}
               </div>
             )}
           </div>
