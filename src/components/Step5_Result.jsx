@@ -7,7 +7,6 @@ const INFO_TEXTS = {
   '79d': 'Die Nachzahlung gilt für das 1. und 2. Kind (nach Geburtsdatum), weil die bisherigen kindbezogenen Zuschläge verfassungsrechtlich zu niedrig waren. Berücksichtigt werden nur die Jahre 2021 (41 €/Mon.), 2022 (9 €/Mon.) und 2025 (52 €/Mon.) – für 2023 und 2024 ist laut Referentenentwurf eine gesonderte Rechtsverordnung erforderlich, die noch aussteht. Diese Jahre sind daher nicht im berechneten Betrag enthalten.',
   '79a': 'Rückwirkender ergänzender Familienzuschlag für Sonderfälle (Elternzeit, Pflege). Abzüglich des tatsächlichen Einkommens des Ehegatten.',
   '79e': 'Für Beamte mit 3+ Kindern. Wird nicht automatisch ausgezahlt, sondern muss individuell per Rechtsverordnung festgesetzt werden.',
-  '3pct': 'Vorläufige Anhebung der Bruttobezüge um 3 % von Juli 2025 bis April 2026 als Überbrückung bis zur neuen Tabelle.',
 };
 
 const Step5_Result = ({ result, data, shareUrl }) => {
@@ -111,7 +110,7 @@ const Step5_Result = ({ result, data, shareUrl }) => {
       </div>
 
       <div className="glass-card mb-6">
-        <h3 className="mb-4 text-success">Nachzahlung §§ 79a–79e + 3 %</h3>
+        <h3 className="mb-4 text-success">Nachzahlung §§ 79a–79e</h3>
         <div style={{ overflowX: 'auto' }}>
           <table className="result-table">
             <thead>
@@ -162,12 +161,6 @@ const Step5_Result = ({ result, data, shareUrl }) => {
                 <td className="num">—</td>
               </tr>
               {openInfo['79e'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['79e']}</td></tr>}
-              <tr>
-                <td><strong>3 %-Anhebung</strong><InfoBtn k="3pct" /> 07/2025–04/2026</td>
-                <td>Brutto × (1−1/1,03) × {result.monate_3p} M.</td>
-                <td className="num">{fmt(result.diff3)}</td>
-              </tr>
-              {openInfo['3pct'] && <tr className="info-row"><td colSpan="3">{INFO_TEXTS['3pct']}</td></tr>}
               <tr className="total-row">
                 <td colSpan="2">Summe Brutto-Nachzahlung (ohne § 79e)</td>
                 <td className="num" style={{ fontSize: '1.2rem' }}>{fmt(result.total)}</td>

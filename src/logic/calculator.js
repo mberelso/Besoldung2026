@@ -156,11 +156,10 @@ export function calculateAll(d, kids) {
     const capMonths = Math.min(incomes.months, d.m[y]);
 
     let applicable = d.case41!=='none' && capMonths>0;
-    let note='';
     let effMonths = capMonths;
     if(d.case41==='n1'){
       const refKids = kids.filter(k => (d.refChildrenN1||[]).includes(k.idx) && k.birth);
-      if(refKids.length===0){ applicable=false; note='Nr. 1: mind. ein Bezugskind mit Geburtsdatum wählen'; }
+      if(refKids.length===0){ applicable=false; }
       else {
         const yNum = y==='2026pre'? 2026 : parseInt(y);
         const maxMo = y==='2026pre'? 4:12;
@@ -173,12 +172,11 @@ export function calculateAll(d, kids) {
           });
           if(eligible) below1++;
         }
-        if(capMonths>below1){ note='begrenzt auf '+below1+' M. (Kind < 1 J.)'; }
         effMonths = Math.min(capMonths, below1);
         applicable = effMonths>0;
       }
     }
-    if(d.case41==='a' && kids.length<2){ applicable=false; note='§ 41a setzt 2+ Kinder voraus'; }
+    if(d.case41==='a' && kids.length<2){ applicable=false; }
 
     const jahreseink = incomes.erwerb + incomes.elterngeld + incomes.sonst + incomes.kind;
     const monatseink = effMonths>0 ? jahreseink/effMonths : 0;
@@ -191,11 +189,9 @@ export function calculateAll(d, kids) {
         rows79a.push({ year: y, text: effMonths+' M. × ('+fmt(monatsbetrag)+' − '+fmt(monatseink)+'/Mon.) = '+fmt(betrag) });
   });
 
-  const monate_3p = Math.max(0, d.m[2025]-3) + d.m['2026pre'];
-  const diff3 = (apr25.brutto - apr25.brutto/1.03) * monate_3p;
   const hasKidge3 = kids.length>=3;
   const n_79e_hint = hasKidge3? '—: per RVO (nicht automatisch)' : 'nicht einschlägig (< 3 Kinder)';
-  const total = n_79a + n_79b + n_79c + n_79d + diff3;
+  const total = n_79a + n_79b + n_79c + n_79d;
 
   return {
     apr25,
@@ -206,9 +202,7 @@ export function calculateAll(d, kids) {
     n_79a,
     details79d,
     rows79a,
-    diff3,
     total,
     n_79e_hint,
-    monate_3p
   };
 }
