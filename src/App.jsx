@@ -7,6 +7,8 @@ import Step4_SpecialCase from './components/Step4_SpecialCase';
 import Step5_Result from './components/Step5_Result';
 import Impressum from './components/Impressum';
 import FAQ from './components/FAQ';
+import LegislativeStatus from './components/LegislativeStatus';
+import FurtherReading from './components/FurtherReading';
 import { calculateAll } from './logic/calculator';
 
 function App() {
@@ -36,6 +38,21 @@ function App() {
   const [kids, setKids] = useState([]);
   const [incomes, setIncomes] = useState({});
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#s=')) {
+      try {
+        const payload = JSON.parse(atob(hash.slice(3)));
+        if (payload.data) setData(payload.data);
+        if (payload.kids) setKids(payload.kids);
+        if (payload.incomes) setIncomes(payload.incomes);
+        setCurrentStep(5);
+      } catch {
+        // ungültiger Hash – ignorieren
+      }
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
@@ -75,6 +92,14 @@ function App() {
     return null;
   }, [currentStep, data, kids, incomes]);
 
+  const shareUrl = useMemo(() => {
+    if (currentStep !== 5) return null;
+    const payload = btoa(JSON.stringify({ data, kids, incomes }));
+    const url = new URL(window.location.href);
+    url.hash = `s=${payload}`;
+    return url.toString();
+  }, [currentStep, data, kids, incomes]);
+
   return (
     <>
       <div className="bg-blobs">
@@ -96,6 +121,8 @@ function App() {
             {isDarkMode ? '☀️ Hell' : '🌙 Dunkel'}
           </button>
         </header>
+
+        <LegislativeStatus />
 
         <div className="glass-card" style={{ padding: '2rem 3rem' }}>
           
@@ -138,7 +165,7 @@ function App() {
             )}
 
             {currentStep === 5 && (
-               <Step5_Result result={result} data={data} />
+               <Step5_Result result={result} data={data} shareUrl={shareUrl} />
             )}
           </div>
 
@@ -158,6 +185,7 @@ function App() {
         </div>
 
         {view === 'wizard' && <FAQ />}
+        {view === 'wizard' && <FurtherReading />}
 
         <footer style={{ marginTop: '2rem', textAlign: 'center' }}>
           <div style={{ marginBottom: '1.25rem' }}>

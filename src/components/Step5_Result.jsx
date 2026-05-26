@@ -10,8 +10,16 @@ const INFO_TEXTS = {
   '3pct': 'Vorläufige Anhebung der Bruttobezüge um 3 % von Juli 2025 bis April 2026 als Überbrückung bis zur neuen Tabelle.',
 };
 
-const Step5_Result = ({ result, data }) => {
+const Step5_Result = ({ result, data, shareUrl }) => {
   const [openInfo, setOpenInfo] = useState({});
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
 
   if (!result) return null;
 
@@ -32,9 +40,18 @@ const Step5_Result = ({ result, data }) => {
           <h2 style={{ marginBottom: '0.25rem' }}>5. Ergebnis & Zusammenfassung</h2>
           <p className="sub">Dein errechnetes Brutto-Gehalt und die voraussichtlichen Nachzahlungen.</p>
         </div>
-        <button className="btn btn-outline no-print" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem', whiteSpace: 'nowrap', marginLeft: '1rem' }} onClick={() => window.print()}>
-          🖨 Drucken / PDF
-        </button>
+        <div style={{ display: 'flex', gap: '0.5rem', marginLeft: '1rem' }}>
+          <button
+            className="btn btn-outline no-print"
+            style={{ padding: '0.4rem 1rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }}
+            onClick={handleCopy}
+          >
+            {copied ? '✓ Link kopiert!' : '🔗 Link teilen'}
+          </button>
+          <button className="btn btn-outline no-print" style={{ padding: '0.4rem 1rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} onClick={() => window.print()}>
+            🖨 Drucken
+          </button>
+        </div>
       </div>
 
       <div className="flex flex-col gap-6 mb-6">
